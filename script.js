@@ -83,3 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Taruh semua inisialisasi menu dan event listener di sini
+    // Ini mencegah skrip berjalan sebelum DOM siap dan mengurangi layout thrashing
+});
