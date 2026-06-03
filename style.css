@@ -848,55 +848,68 @@ footer {
   }
 }
 /* ==========================================================================
-   OPTIMASI TOMBOL GOOGLE DRIVE (MOBILE & DESKTOP - CENTERED)
+   OPTIMASI TOMBOL GOOGLE DRIVE (KONSISTEN MOBILE & DESKTOP)
    ========================================================================== */
 .cert-drive-btn {
-  /* Mengubah ke flex biasa agar margin: auto bisa bekerja sempurna menarik ke tengah */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  
-  /* RESPONSIVITAS LEBAR TOMBOL */
-  width: calc(100% - 2rem); /* Memberi ruang aman di kanan-kiri saat layar mobile sangat kecil */
-  max-width: 340px;         /* Mengunci lebar maksimal agar tetap kompak di desktop */
-  
-  /* LOKASI PRESI SENTER DI TENGAH */
-  margin: 3.5rem auto 0 auto; /* Nilai 'auto' kanan-kiri memaksa tombol duduk di tengah */
-  
-  padding: 0.8rem 1.5rem;
+  width: calc(100% - 2rem);
+  max-width: 340px;
+  margin: 3.5rem auto 0 auto;
+  padding: 0.8rem 1.2rem; /* Sedikit merapatkan padding agar teks aman */
   background-color: transparent;
   color: var(--accent);
   border: 2px solid var(--accent);
   border-radius: 6px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.85rem; /* Ukuran font ideal agar teks tidak gampang patah baris */
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap; /* Memaksa teks tetap dalam 1 baris, dilarang patah ke bawah */
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
-/* Efek hover saat kursor menyentuh tombol */
+/* Efek Hover */
 .cert-drive-btn:hover {
   background-color: var(--accent);
   color: #ffffff;
 }
 
-/* Ukuran Ikon SVG Drive */
+/* Ikon SVG Drive */
 .cert-drive-btn svg {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-/* Warna default Ikon SVG Drive (Biru) */
 .cert-drive-btn svg path {
   fill: var(--accent);
   transition: fill 0.2s ease;
 }
 
-/* Warna Ikon SVG Drive saat di-hover (Putih) */
 .cert-drive-btn:hover svg path {
   fill: #ffffff;
+}
+
+/* KONDISI KHUSUS DESKTOP (Layar Lebar) */
+@media (min-width: 769px) {
+  .cert-drive-btn {
+    font-size: 0.9rem; /* Ukuran font sedikit lebih tegas di komputer/laptop */
+    max-width: 360px;  /* Batas lebar tombol sedikit disesuaikan untuk desktop */
+  }
+}
+
+/* KONDISI KHUSUS MOBILE SANGAT KECIL (Mencegah teks meluber keluar tombol) */
+@media (max-width: 360px) {
+  .cert-drive-btn {
+    font-size: 0.78rem; /* Mengecilkan teks secara otomatis hanya pada HP berlayar super sempit */
+    gap: 0.4rem;
+  }
+  .cert-drive-btn svg {
+    width: 16px;
+    height: 16px;
+  }
 }
