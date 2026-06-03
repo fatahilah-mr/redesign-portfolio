@@ -10,10 +10,18 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Semua Sertifikat — Fatahilah Miftahul Rahman</title>
-  <!-- Preconnect untuk mempercepat loading font (Anti-Blocking Render) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<!-- 1. Amankan koneksi ke server font lebih awal -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- 2. Panggil font secara Asynchronous (Tidak memblokir layar) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'" />
+
+<!-- 3. Antisipasi jika browser pengunjung tidak mendukung skrip di atas -->
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" />
+</noscript>
+
 
   <!-- Menghubungkan ke file CSS eksternal -->
   <link rel="stylesheet" href="style.css" />
