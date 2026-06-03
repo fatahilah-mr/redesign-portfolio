@@ -701,6 +701,33 @@
       height: 100%;
       transform: scale(1.15); /* Sedikit memperbesar gambar agar teks sertifikat lebih terbaca */
     }
+    /* Trik CSS Agar Sertifikat Vertikal Masuk Bingkai dengan Rapi */
+    .pkl-vertical .cert-img-wrap {
+      background: #ffffff;
+      padding: 0.5rem 0;
+    }
+    .pkl-vertical .cert-img-wrap img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      transform: scale(1.15);
+    }
+
+    /* Optimasi Tampilan Desktop (Sertifikat LKS di Atas Tengah) */
+    @media (min-width: 768px) {
+      .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      .lks-featured {
+        grid-column: span 2;
+        justify-self: center;
+        width: 100%;
+        max-width: 550px;
+        margin-bottom: 1.5rem;
+      }
+    }
 
   </style>
 </head>
@@ -864,16 +891,20 @@
       <h2 class="section-title">Certificates</h2>
       <div class="divider"></div>
       <div class="cert-grid">
-        <div class="cert-card">
+        
+        <!-- 1. Sertifikat LKS (Highlight Utama) -->
+        <div class="cert-card lks-featured">
           <div class="cert-img-wrap">
             <img src="assets/certificate-lks.jpg" alt="Sertifikat LKS SMK Kabupaten Purworejo 2026" />
           </div>
           <div class="cert-info">
-            <div class="cert-name">Juara I — IT Network System Administration</div>
+            <div class="cert-name">Juara I – IT Network System Administration</div>
             <div class="cert-year">LKS SMK Kabupaten Purworejo · 2026</div>
           </div>
         </div>
-                <div class="cert-card pkl-vertical">
+
+        <!-- 2. Sertifikat PKL UPTD BLK Kebumen - Halaman Depan -->
+        <div class="cert-card pkl-vertical">
           <div class="cert-img-wrap">
             <img src="assets/Sertifikat-PKL-UPTD-BLK-Kebumen-depan.jpg" alt="Sertifikat PKL UPTD BLK Kebumen - Depan" />
           </div>
@@ -883,12 +914,36 @@
           </div>
         </div>
 
-        <div class="cert-card"> <div class="cert-img-wrap">
+        <!-- 3. Sertifikat PKL UPTD BLK Kebumen - Halaman Belakang (Mata Latihan) -->
+        <div class="cert-card">
+          <div class="cert-img-wrap">
             <img src="assets/Sertifikat-PKL-UPTD-BLK-Kebumen-belakang.jpg" alt="Sertifikat PKL UPTD BLK Kebumen - Unit Kompetensi" />
           </div>
           <div class="cert-info">
             <h3 class="cert-card-title">Sertifikat PKL UPTD BLK Kebumen (Mata Latihan)</h3>
             <p class="cert-desc">Daftar Unit Kompetensi resmi dari UPTD BLK Kebumen yang menyatakan fokus program pelatihan dan praktik pada materi Network Fundamental, Membangun Jaringan LAN, serta MikroTik.</p>
+          </div>
+        </div>
+
+        <!-- 4. Sertifikat PKL IMC Computer - Halaman Depan -->
+        <div class="cert-card">
+          <div class="cert-img-wrap">
+            <img src="assets/Sertifikat-PKL-IMC-Computer-depan.jpg" alt="Sertifikat PKL Izzan Mediatek Computindo - Depan" />
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-card-title">Sertifikat PKL IMC Computer (Depan)</h3>
+            <p class="cert-desc">Bukti pelaksanaan program Praktek Kerja Industri selama 3 bulan di Izzan Mediatek Computindo dengan hasil penilaian baik di bidang Teknik Komputer dan Jaringan.</p>
+          </div>
+        </div>
+
+        <!-- 5. Sertifikat PKL IMC Computer - Halaman Belakang (Transkrip Nilai) -->
+        <div class="cert-card">
+          <div class="cert-img-wrap">
+            <img src="assets/Sertifikat-PKL-IMC-Computer-belakang.jpg" alt="Sertifikat PKL Izzan Mediatek Computindo - Transkrip Nilai" />
+          </div>
+          <div class="cert-info">
+            <h3 class="cert-card-title">Sertifikat PKL IMC Computer (Transkrip Nilai)</h3>
+            <p class="cert-desc">Transkrip kompetensi teknis yang mencakup perakitan & troubleshooting komputer, instalasi sistem operasi (Predikat Sangat Baik), konfigurasi CCTV, serta jaringan komputer.</p>
           </div>
         </div>
       </div>
