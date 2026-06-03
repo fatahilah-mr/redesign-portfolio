@@ -848,16 +848,22 @@ footer {
   }
 }
 /* ==========================================================================
-   OPTIMASI TOMBOL GOOGLE DRIVE DI HALAMAN CERTIFICATES (BIRU KONSISTEN)
+   OPTIMASI TOMBOL GOOGLE DRIVE (MOBILE & DESKTOP - CENTERED)
    ========================================================================== */
 .cert-drive-btn {
-  display: inline-flex;
+  /* Mengubah ke flex biasa agar margin: auto bisa bekerja sempurna menarik ke tengah */
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  width: 100%;
-  max-width: 340px;
-  margin: 3rem auto 0 auto;
+  
+  /* RESPONSIVITAS LEBAR TOMBOL */
+  width: calc(100% - 2rem); /* Memberi ruang aman di kanan-kiri saat layar mobile sangat kecil */
+  max-width: 340px;         /* Mengunci lebar maksimal agar tetap kompak di desktop */
+  
+  /* LOKASI PRESI SENTER DI TENGAH */
+  margin: 3.5rem auto 0 auto; /* Nilai 'auto' kanan-kiri memaksa tombol duduk di tengah */
+  
   padding: 0.8rem 1.5rem;
   background-color: transparent;
   color: var(--accent);
@@ -871,25 +877,26 @@ footer {
   cursor: pointer;
 }
 
+/* Efek hover saat kursor menyentuh tombol */
 .cert-drive-btn:hover {
   background-color: var(--accent);
   color: #ffffff;
 }
 
-/* Mengunci ukuran IKON SVG Google Drive */
+/* Ukuran Ikon SVG Drive */
 .cert-drive-btn svg {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-/* MEMAKSA WARNA LOGO SEGITIGA GOOGLE DRIVE MENJADI BIRU SENADA */
+/* Warna default Ikon SVG Drive (Biru) */
 .cert-drive-btn svg path {
   fill: var(--accent);
   transition: fill 0.2s ease;
 }
 
-/* Saat tombol di-hover, warna logo ikut berubah menjadi putih bersama teks */
+/* Warna Ikon SVG Drive saat di-hover (Putih) */
 .cert-drive-btn:hover svg path {
   fill: #ffffff;
 }
