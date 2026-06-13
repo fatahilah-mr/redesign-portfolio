@@ -310,6 +310,11 @@ nav.nav-hidden {
   color: #6D28D9 !important;
 }
 
+.badge-website {
+  background-color: #E0E7FF !important; /* biru muda */
+  color: #3730A3 !important;           /* ungu tua */
+}
+
 .badge-default {
   background-color: #E5E7EB !important; /* Abu-abu Cadangan */
   color: #374151 !important;
