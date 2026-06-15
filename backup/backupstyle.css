@@ -55,8 +55,8 @@ a, button, .menu-toggle, .close-btn, .close-modal, .contact-btn, .btn-transkrip,
 .menu-toggle:active,
 .close-btn:active,
 .close-modal:active {
-  transform: scale(0.96); /* Membal menyusut 4% */
-  opacity: 0.75;           /* Pudar halus 25% */
+  transform: scale(0.96);
+  opacity: 0.75;
 }
 
 /* --- OPSI 2 (BACKGROUND SHIFT) UNTUK TOMBOL BERLATAR SOLID --- */
@@ -69,8 +69,8 @@ a, button, .menu-toggle, .close-btn, .close-modal, .contact-btn, .btn-transkrip,
 .contact-btn:active,
 .btn-transkrip:active,
 .cert-drive-btn:active {
-  filter: brightness(0.85); /* Blok warna menggelap 15% */
-  transform: scale(0.98);    /* Efek tekanan mekanis sedalam 2% */
+  filter: brightness(0.85);
+  transform: scale(0.98);
 }
 
 /* ==========================================================================
@@ -326,7 +326,6 @@ section {
 
 .achievement-card .meta-card-label {
   color: #FFFFFF !important;
-  /* atau jika ingin tetap transparan sedikit: rgba(255,255,255,0.9) */
 }
 
 .achievement-card .meta-card-value { 
@@ -348,11 +347,11 @@ section {
 }
 
 /* ==========================================================================
-   SEKSI SKILLS
+   SEKSI SKILLS (DIPERBAIKI - JUDUL DI ATAS, GRID TENGAH)
    ========================================================================== */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
@@ -621,7 +620,7 @@ section {
   margin: 3.5rem auto 0 auto;
   padding: 0.8rem 1.2rem;
   background-color: transparent;
-  color: var(--ink-soft); /* Diubah ke warna pekat agar teks luar border lolos audit */
+  color: var(--ink-soft);
   border: 2px solid var(--accent);
   border-radius: 6px;
   font-family: 'DM Sans', sans-serif;
@@ -775,16 +774,14 @@ footer {
    MEDIA QUERIES (RESPONSIF LAPTOP / DESKTOP)
    ========================================================================== */
 
-/* Untuk layar lebar mulai dari 600px (termasuk tablet dan mode desktop HP) */
+/* Tablet dan desktop kecil (min 600px) */
 @media (min-width: 600px) {
-  /* Atur grid menjadi 2 kolom */
   .cert-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
 
-  /* Kartu featured (id=1) tampil di tengah sendiri */
   .cert-card.featured-cert {
     grid-column: 1 / -1;
     max-width: 550px;
@@ -793,24 +790,14 @@ footer {
     margin-bottom: 2rem;
   }
 
-  /* Aturan lain dari sebelumnya (skills, buttons, contact, dll) */
-  #skills .section-inner {
-    display: flex;
-    align-items: flex-start;
-    gap: 4rem;
-  }
-
-  #skills .section-inner > div:first-child {
-    position: sticky;
-    top: 100px;
-    width: 30%;
-    flex-shrink: 0;
-  }
-
+  /* Skills grid menjadi 2 kolom, berada di tengah */
   .skills-grid {
-    flex-grow: 1;
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .lks-featured {
@@ -846,9 +833,9 @@ footer {
   }
 }
 
-/* Untuk layar yang lebih kecil (opsional) tetap dipertahankan */
-@media (max-width: 599px) {
-  /* Aturan mobile sudah ada di bagian sebelumnya, tidak perlu diubah */
+/* Desktop lebar (min 1024px) tidak perlu mengubah grid skills lagi karena sudah 2 kolom */
+@media (min-width: 1024px) {
+  /* Bisa tambahkan penyesuaian lain jika diperlukan, namun skills tetap 2 kolom */
 }
 
 /* ==========================================================================
@@ -860,25 +847,20 @@ footer {
     gap: 2.5rem; 
     text-align: center; 
   }
-  
   .hero-tagline { 
     margin: 0 auto; 
   }
-  
   .hero-photo-wrap { 
     width: 200px; 
     height: 200px; 
   }
-  
   .about-grid { 
     grid-template-columns: 1fr; 
     gap: 2rem; 
   }
-
   .menu-toggle { 
     display: flex; 
   }
-
   .nav-overlay {
     position: fixed;
     top: 0; right: -100%;
@@ -894,11 +876,9 @@ footer {
     gap: 1.2rem;
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   .nav-overlay.open { 
     right: 0; 
   }
-  
   .overlay-header { 
     display: flex; 
     align-items: center; 
@@ -907,14 +887,12 @@ footer {
     border-bottom: 1px solid var(--border); 
     padding-bottom: 0.5rem; 
   }
-  
   .close-btn { 
     font-size: 2rem; 
     color: var(--ink-soft); 
     cursor: pointer; 
     line-height: 1; 
   }
-  
   .overlay-title { 
     display: block; 
     font-size: 0.85rem; 
@@ -923,14 +901,12 @@ footer {
     text-transform: uppercase; 
     color: var(--ink-muted); 
   }
-  
   .overlay-links { 
     flex-direction: column; 
     gap: 1rem; 
     align-items: flex-start; 
     width: 100%; 
   }
-  
   .overlay-links a { 
     font-size: 1.05rem; 
     width: 100%; 
@@ -958,9 +934,9 @@ footer {
 .cert-year, 
 .meta-card-label, 
 .overlay-title {
-  color: var(--ink-soft) !important; /* Menaikkan kepekatan elemen teks sekunder */
+  color: var(--ink-soft) !important;
 }
-/* Tambahan untuk meta penerbit & tahun */
+
 .cert-meta {
   font-size: 0.75rem;
   color: var(--ink-muted);
@@ -969,21 +945,21 @@ footer {
 
 .project-desc, 
 .about-body p {
-  color: var(--ink) !important; /* Memastikan teks panjang berada di kontras tertinggi */
+  color: var(--ink) !important;
 }
-/* Update kontras untuk elemen badge dan tombol */
+
 .achievement-badge {
-  background: #B8860B !important; /* Warna emas lebih gelap */
+  background: #B8860B !important;
   color: #FFFFFF !important;
-  font-weight: 700; /* Menebalkan font agar lebih mudah dibaca */
+  font-weight: 700;
 }
 
 .contact-btn.wa-color {
-  background-color: #075E54 !important; /* Hijau WhatsApp yang lebih gelap dan kontras */
+  background-color: #075E54 !important;
 }
 
 .contact-btn.email-color {
-  background-color: #B22222 !important; /* Merah yang lebih gelap */
+  background-color: #B22222 !important;
 }
 
 .cv-color {
