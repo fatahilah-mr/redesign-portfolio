@@ -324,8 +324,9 @@ section {
   color: var(--white);
 }
 
-.achievement-card .meta-card-label { 
-  color: rgba(255,255,255,0.7); 
+.achievement-card .meta-card-label {
+  color: #FFFFFF !important;
+  /* atau jika ingin tetap transparan sedikit: rgba(255,255,255,0.9) */
 }
 
 .achievement-card .meta-card-value { 
@@ -987,4 +988,94 @@ footer {
 
 .cv-color {
   background-color: #2C3E50 !important;
+}
+
+/* ==========================================================================
+   SECTION PENGALAMAN PKL
+   ========================================================================== */
+#experience {
+  background: var(--white);
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.75rem;
+  margin-top: 1rem;
+}
+
+.experience-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.experience-card:hover {
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+.experience-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.experience-company {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+}
+
+.experience-date {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.experience-role {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.experience-desc {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.experience-desc li {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.experience-desc li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .experience-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .experience-company {
+    font-size: 1rem;
+  }
 }
