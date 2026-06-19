@@ -8,7 +8,7 @@ Ini adalah kode sumber untuk **Lab Archive**, sebuah laboratorium teknis digital
 > [github.com/fatahilah-mr/portofolio](https://github.com/fatahilah-mr/portofolio)
 
 Website live dapat diakses di:  
-[https://fatahilahmr.my.id/lab-archive/](https://fatahilahmr.my.id/lab-archive/)
+[https://fatahmr.my.id/lab-archive/](https://fatahmr.my.id/lab-archive/)
 
 
 ---

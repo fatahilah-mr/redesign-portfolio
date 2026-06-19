@@ -4,7 +4,7 @@ Ini adalah repositori kode sumber (*source code*) untuk website portofolio priba
 
 Sebagai lulusan TKJ yang juga sedang mendalami **AI Prompt Engineering**, saya memanfaatkan teknologi LLM (Large Language Model) untuk membantu otomatisasi skrip jaringan dan pemecahan masalah (*troubleshooting*) sistem server agar implementasi di industri menjadi lebih efisien dan aman.
 
-Website ini sudah live dan bisa diakses di: [fatahilahmr.my.id](https://fatahilahmr.my.id)
+Website ini sudah live dan bisa diakses di: [fatahmr.my.id](https://fatahmr.my.id)
 
 ---
 
