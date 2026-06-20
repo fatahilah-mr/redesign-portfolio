@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "fatahilah-portofolio.vercel.app"
+        }
+      ],
+      "destination": "https://fatahmr.my.id/$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*).(webp|css|js|txt|xml)",
