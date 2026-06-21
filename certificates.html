@@ -25,27 +25,29 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" />
   </noscript>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
 
   <header>
-    <nav id="main-nav">
+    <nav id="main-nav" aria-label="Navigasi Utama">
       <a href="index.html#home" class="nav-logo">Fatahilah Miftahul Rahman</a>
-      <div class="menu-toggle" id="mobile-menu">
+      
+      <button class="menu-toggle" id="mobile-menu" aria-label="Buka Menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
+      
       <div class="nav-overlay" id="nav-overlay">
         <div class="overlay-header">
           <span class="overlay-title">Menu</span>
-          <div class="close-btn" id="close-menu">&times;</div>
+          <button class="close-btn" id="close-menu" aria-label="Tutup Menu">&times;</button>
         </div>
         <ul class="overlay-links">
           <li><a href="index.html#home">Home</a></li>
           <li><a href="index.html#about">About</a></li>
-          <li><a href="#experience">Pengalaman</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
           <li><a href="index.html#skills">Skills</a></li>
           <li><a href="index.html#projects">Projects</a></li>
           <li><a href="/lab-archive/">Lab Archive</a></li>
@@ -87,7 +89,7 @@
   </main>
 
   <div id="certModal" class="modal">
-    <span class="close-modal" id="closeModal">&times;</span>
+    <button class="close-modal" id="closeModal" aria-label="Tutup Modal">&times;</button>
     <img class="modal-content" id="modalImg" alt="Halaman Lampiran Sertifikat" />
   </div>
 

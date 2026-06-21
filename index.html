@@ -23,7 +23,7 @@
   <meta property="og:title" content="Fatahilah Miftahul Rahman — Portfolio" />
   <meta property="og:description" content="Portofolio profesional Fatahilah Miftahul Rahman, spesialis IT Network &amp; System Administration dan Juara LKS. Kumpulan proyek lab infrastruktur, jaringan komputer, dan sertifikasi digital terverifikasi." />
   <meta property="og:url" content="https://fatahmr.my.id/" />
-  <meta property="og:image" content="https://fatahmr.my.id/assets/profile.webp" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fatahilah-mr/portofolio@main/assets/profile.webp" />
 
 
   <!-- 1. Amankan koneksi ke server font lebih awal -->
@@ -37,8 +37,9 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" />
   </noscript>
-  <link rel="stylesheet" href="style.css?v=5" />
-    <!-- Menyatakan Nama Situs Secara Eksplisit untuk Google Search -->
+  <link rel="stylesheet" href="style.css?v=6" />
+  
+  <!-- Menyatakan Nama Situs Secara Eksplisit untuk Google Search -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,20 +55,24 @@
 
   <!-- LANDMARK HEADER: Memperbaiki aksesibilitas navigasi utama -->
   <header>
-    <nav id="main-nav">
+    <nav id="main-nav" aria-label="Navigasi Utama">
       <a href="#home" class="nav-logo">Fatahilah Miftahul Rahman</a>
-      <div class="menu-toggle" id="mobile-menu">
-        <span></span><span></span><span></span>
-      </div>
+      
+      <button class="menu-toggle" id="mobile-menu" aria-label="Buka Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
       <div class="nav-overlay" id="nav-overlay">
         <div class="overlay-header">
           <span class="overlay-title">Menu</span>
-          <div class="close-btn" id="close-menu">&times;</div>
+          <button class="close-btn" id="close-menu" aria-label="Tutup Menu">&times;</button>
         </div>
         <ul class="overlay-links">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#experience">Pengalaman</a></li>
+          <li><a href="#experience">Experience</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="/lab-archive/">Lab Archive</a></li>
@@ -90,7 +95,7 @@
           <p class="hero-tagline">Connecting the future, one network at a time.</p>
         </div>
         <div class="hero-photo-wrap">
-          <img src="assets/profile.webp" alt="Foto Profil Fatahilah Miftahul Rahman" width="150" height="150" fetchpriority="high" />
+          <img src="https://cdn.jsdelivr.net/gh/fatahilah-mr/portofolio@main/assets/profile.webp" alt="Foto Profil Fatahilah Miftahul Rahman" width="150" height="150" fetchpriority="high" />
         </div>
       </div>
     </section>
@@ -125,18 +130,19 @@
       </div>
     </section>
 
-    <!-- PENGALAMAN PKL (BARU) -->
+    <!-- PENGALAMAN PKL -->
+    <!-- SETELAH PERUBAHAN -->
     <section id="experience">
       <div class="section-inner">
-        <p class="section-label">Pengalaman Lapangan</p>
-        <h2 class="section-title">PKL / Magang</h2>
+        <p class="section-label">Professional Experience</p>
+        <h2 class="section-title">Internship</h2>
         <div class="divider"></div>
         <div class="experience-grid">
           <!-- 1. UPTD BLK Kebumen -->
           <div class="experience-card">
             <div class="experience-header">
               <h3 class="experience-company">UPTD Balai Latihan Kerja (BLK) Kebumen</h3>
-              <span class="experience-date">Nov 2025 – Des 2025</span>
+              <span class="experience-date">Nov 2025 - Des 2025</span>
             </div>
             <div class="experience-role">Peserta Praktik Kerja Lapangan (Network & Server)</div>
             <ul class="experience-desc">
@@ -150,7 +156,7 @@
           <div class="experience-card">
             <div class="experience-header">
               <h3 class="experience-company">Fazza Computer</h3>
-              <span class="experience-date">Sep 2025 – Nov 2025</span>
+              <span class="experience-date">Sep 2025 - Nov 2025</span>
             </div>
             <div class="experience-role">Peserta Praktik Kerja Lapangan (FTTH & Network)</div>
             <ul class="experience-desc">
@@ -163,7 +169,7 @@
           <div class="experience-card">
             <div class="experience-header">
               <h3 class="experience-company">IMC Computer (Izzan Mediatek Computindo)</h3>
-              <span class="experience-date">Feb 2025 – Apr 2025</span>
+              <span class="experience-date">Feb 2025 - Apr 2025</span>
             </div>
             <div class="experience-role">Peserta Praktik Kerja Lapangan (PC & Network)</div>
             <ul class="experience-desc">
@@ -176,7 +182,7 @@
       </div>
     </section>
 
-    <!-- SKILLS (lanjutan) -->
+    <!-- SKILLS -->
     <section id="skills">
       <div class="section-inner">
         <div>
@@ -240,7 +246,7 @@
         <div class="projects-grid">
           <div class="project-card">
             <div class="project-img-wrap">
-              <img src="assets/Topologi-Cisco-PT-01.webp" alt="Topologi Cisco Packet Tracer" width="600" height="350" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-mr/portofolio@main/assets/Topologi-Cisco-PT-01.webp" alt="Topologi Cisco Packet Tracer" width="600" height="350" loading="lazy" />
             </div>
             <div class="project-info">
               <h3 class="project-card-title">Rancang Bangun Jaringan Kantor 3 Lantai</h3>
@@ -249,7 +255,7 @@
           </div>
           <div class="project-card">
             <div class="project-img-wrap">
-              <img src="assets/Mikrotik-01.webp" alt="Konfigurasi MikroTik" width="600" height="350" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-mr/portofolio@main/assets/Mikrotik-01.webp" alt="Konfigurasi MikroTik" width="600" height="350" loading="lazy" />
             </div>
             <div class="project-info">
               <h3 class="project-card-title">Setup Gateway &amp; Keamanan Jaringan MikroTik</h3>
@@ -259,7 +265,6 @@
         </div>
         <div class="cert-buttons-wrapper" style="margin-top: 3.5rem;">
           <a href="/lab-archive/" class="cert-btn btn-secondary" style="max-width: 340px; border-color: var(--accent); color: var(--accent); white-space: nowrap;">
-<!--             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 6px; flex-shrink: 0;"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg> -->
             Kunjungi Lab Archive →
           </a>
         </div>
@@ -275,16 +280,16 @@
         <div class="cert-grid">
           <div class="cert-card lks-featured">
             <div class="cert-img-wrap">
-              <img src="assets/certificates/certificate-lks.webp" alt="Sertifikat LKS SMK Kabupaten Purworejo 2026" width="600" height="380" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-mr/portofolio@main/assets/certificates/certificate-lks.webp" alt="Sertifikat LKS SMK Kabupaten Purworejo 2026" width="600" height="380" loading="lazy" />
             </div>
             <div class="cert-info">
-              <div class="cert-name">Juara I – IT Network System Administration</div>
-              <div class="cert-year">LKS SMK Kabupaten Purworejo · 2026</div>
+              <div class="cert-name">Juara I - IT Network System Administration</div>
+              <div class="cert-year">LKS SMK Kabupaten Purworejo - 2026</div>
             </div>
           </div>
           <div class="cert-card pkl-vertical">
             <div class="cert-img-wrap">
-              <img src="assets/certificates/Sertifikat-PKL-UPTD-BLK-Kebumen-depan.webp" alt="Sertifikat PKL UPTD BLK Kebumen - Depan" width="300" height="400" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-tkj/portofolio@main/assets/certificates/Sertifikat-PKL-UPTD-BLK-Kebumen-depan.webp" alt="Sertifikat PKL UPTD BLK Kebumen - Depan" width="300" height="400" loading="lazy" />
             </div>
             <div class="cert-info">
               <h3 class="cert-card-title">Sertifikat PKL UPTD BLK Kebumen (Depan)</h3>
@@ -293,7 +298,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-img-wrap">
-              <img src="assets/certificates/Sertifikat-PKL-UPTD-BLK-Kebumen-belakang.webp" alt="Sertifikat PKL UPTD BLK Kebumen - Unit Kompetensi" width="600" height="380" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-mr/portofolio@main/assets/certificates/Sertifikat-PKL-UPTD-BLK-Kebumen-belakang.webp" alt="Sertifikat PKL UPTD BLK Kebumen - Unit Kompetensi" width="600" height="380" loading="lazy" />
             </div>
             <div class="cert-info">
               <h3 class="cert-card-title">Sertifikat PKL UPTD BLK Kebumen (Mata Latihan)</h3>
@@ -302,7 +307,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-img-wrap">
-              <img src="assets/certificates/Sertifikat-PKL-IMC-Computer-depan.webp" alt="Sertifikat PKL Izzan Mediatek Computindo - Depan" width="600" height="380" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-tkj/portofolio@main/assets/certificates/Sertifikat-PKL-IMC-Computer-depan.webp" alt="Sertifikat PKL Izzan Mediatek Computindo - Depan" width="600" height="380" loading="lazy" />
             </div>
             <div class="cert-info">
               <h3 class="cert-card-title">Sertifikat PKL IMC Computer (Depan)</h3>
@@ -311,7 +316,7 @@
           </div>
           <div class="cert-card">
             <div class="cert-img-wrap">
-              <img src="assets/certificates/Sertifikat-PKL-IMC-Computer-belakang.webp" alt="Sertifikat PKL Izzan Mediatek Computindo - Transkrip Nilai" width="600" height="380" loading="lazy" />
+              <img src="https://cdn.jsdelivr.net/gh/fatahilah-tkj/portofolio@main/assets/certificates/Sertifikat-PKL-IMC-Computer-belakang.webp" alt="Sertifikat PKL Izzan Mediatek Computindo - Transkrip Nilai" width="600" height="380" loading="lazy" />
             </div>
             <div class="cert-info">
               <h3 class="cert-card-title">Sertifikat PKL IMC Computer (Transkrip Nilai)</h3>
@@ -371,13 +376,15 @@
 
   <script src="script.js"></script>
   
-  <!-- Google tag (gtag.js) -->
-<!--   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EFVWRXB4SQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-EFVWRXB4SQ');
-</script> -->
+  <!-- Google tag (gtag.js) - Dikomentari karena tidak digunakan -->
+  <!-- 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EFVWRXB4SQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EFVWRXB4SQ');
+  </script>
+  -->
 </body>
 </html>

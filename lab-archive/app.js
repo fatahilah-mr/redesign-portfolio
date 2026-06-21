@@ -14,14 +14,16 @@ const closeMenuBtn = document.getElementById('close-menu');
 const navbar = document.getElementById('navbar');
 
 // ==========================================
-// UTILITY: ESCAPE HTML (XSS Protection)
+// UTILITY: ESCAPE HTML (XSS Protection - Lebih Aman)
 // ==========================================
 function escapeHtml(str) {
   if (!str) return '';
-  return str.replace(/[&<>]/g, function(m) {
+  return str.replace(/[&<>'"]/g, function(m) {
     if (m === '&') return '&amp;';
     if (m === '<') return '&lt;';
     if (m === '>') return '&gt;';
+    if (m === "'") return '&#039;';
+    if (m === '"') return '&quot;';
     return m;
   });
 }
@@ -56,9 +58,17 @@ async function fetchProjectsData() {
     console.error('Error fetching data:', error);
     projectsGrid.innerHTML = `
       <div class="loading-status" style="color: #B22222; grid-column: 1/-1; text-align: center;">
-        Gagal memuat API Google Sheets<br>silahkan refresh browser anda.
+        Gagal memuat data. Pastikan Google Sheets sudah dipublikasikan.
+        <br><br>
+        <button class="cert-btn btn-secondary" id="retry-fetch" style="max-width:200px; margin:0 auto;">
+          ↻ Coba Lagi
+        </button>
       </div>
     `;
+    const retryBtn = document.getElementById('retry-fetch');
+    if (retryBtn) {
+      retryBtn.addEventListener('click', fetchProjectsData);
+    }
   }
 }
 
@@ -194,40 +204,50 @@ filterButtons.forEach(button => {
 });
 
 // ==========================================
-// 7. MENU MOBILE (OVERLAY)
+// 7. MENU MOBILE (OVERLAY) + ARIA
 // ==========================================
 if (mobileMenuBtn && navOverlay && closeMenuBtn) {
   mobileMenuBtn.addEventListener('click', () => {
     navOverlay.classList.add('open');
+    mobileMenuBtn.setAttribute('aria-expanded', 'true');
   });
 
   closeMenuBtn.addEventListener('click', () => {
     navOverlay.classList.remove('open');
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
   });
 
   const overlayLinks = document.querySelectorAll('.overlay-links a');
   overlayLinks.forEach(link => {
     link.addEventListener('click', () => {
       navOverlay.classList.remove('open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
     });
   });
 }
 
 // ==========================================
-// 8. SMART HIDDEN NAVBAR ON SCROLL
+// 8. SMART HIDDEN NAVBAR ON SCROLL (THROTTLE + RAF)
 // ==========================================
 let lastScrollTop = 0;
+let ticking = false;
 
 if (navbar) {
   window.addEventListener('scroll', function() {
-    let currentScroll = window.scrollY;
-    if (currentScroll > lastScrollTop && currentScroll > 100) {
-      navbar.classList.add('nav-hidden');
-    } else {
-      navbar.classList.remove('nav-hidden');
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        let currentScroll = window.scrollY;
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+          navbar.classList.add('nav-hidden');
+        } else {
+          navbar.classList.remove('nav-hidden');
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        ticking = false;
+      });
+      ticking = true;
     }
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-  }, false);
+  }, { passive: true });
 }
 
 // ==========================================

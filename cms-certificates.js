@@ -1,6 +1,6 @@
 (function() {
   // ==================================================
-  // KONFIGURASI GOOGLE SHEETS (sesuaikan dengan milikmu)
+  // KONFIGURASI GOOGLE SHEETS
   // ==================================================
   const SPREADSHEET_ID = '1GtKyr8LGv5AfSChzfP7t6_4D0rBUoC8VeRdC_Rw6eqY';
   const SHEET_NAME = 'Sheet1';
@@ -9,31 +9,34 @@
   const container = document.getElementById('cert-grid-dynamic');
 
   // ==================================================
-  // UTILITY: ESCAPE HTML
+  // SIMPAN REFERENSI MODAL (agar tidak di-query ulang)
+  // ==================================================
+  const modal = document.getElementById('certModal');
+  const modalImg = document.getElementById('modalImg');
+
+  // ==================================================
+  // UTILITY: ESCAPE HTML (lebih aman)
   // ==================================================
   function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
+    return str.replace(/[&<>'"]/g, function(m) {
       if (m === '&') return '&amp;';
       if (m === '<') return '&lt;';
       if (m === '>') return '&gt;';
+      if (m === "'") return '&#039;';
+      if (m === '"') return '&quot;';
       return m;
     });
   }
 
   // ==================================================
-  // BUKA MODAL (menggunakan modal yang sudah ada di script.js)
+  // BUKA MODAL (menggunakan referensi yang sudah disimpan)
   // ==================================================
-  function attachModalListener(btn, imgSrc) {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const modal = document.getElementById('certModal');
-      const modalImg = document.getElementById('modalImg');
-      if (modal && modalImg) {
-        modalImg.src = imgSrc;
-        modal.classList.add('show');
-      }
-    });
+  function openModal(imgSrc) {
+    if (modal && modalImg) {
+      modalImg.src = imgSrc;
+      modal.classList.add('show');
+    }
   }
 
   // ==================================================
@@ -52,7 +55,6 @@
       const featuredClass = isFeatured ? 'featured-cert' : '';
       const card = document.createElement('div');
       card.className = `cert-card ${additionalClass} ${featuredClass}`;
-      // ... sisanya tetap sama
 
       // Siapkan gambar dengan fallback
       const imgHtml = `<img src="${cert.imgDepan}" alt="${escapeHtml(cert.nama)}" loading="lazy" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
@@ -64,10 +66,10 @@
         buttonHtml = `<button class="btn-transkrip" data-fullimg="${cert.imgBelakang}">📄 Lihat Transkrip</button>`;
       }
 
-      // Gabungan penerbit & tahun
+      // Gabungan penerbit & tahun dengan pemisah " - "
       let metaText = '';
       if (cert.penerbit && cert.tahun) {
-        metaText = `${escapeHtml(cert.penerbit)} • ${escapeHtml(cert.tahun)}`;
+        metaText = `${escapeHtml(cert.penerbit)} - ${escapeHtml(cert.tahun)}`;
       } else if (cert.penerbit) {
         metaText = escapeHtml(cert.penerbit);
       } else if (cert.tahun) {
@@ -89,7 +91,13 @@
       // Pasang event listener untuk tombol transkrip
       const btn = card.querySelector('.btn-transkrip');
       if (btn && cert.imgBelakang) {
-        attachModalListener(btn, cert.imgBelakang);
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const fullImg = this.getAttribute('data-fullimg');
+          if (fullImg) {
+            openModal(fullImg);
+          }
+        });
       }
 
       container.appendChild(card);
@@ -104,14 +112,11 @@
       const response = await fetch(DATA_URL);
       if (!response.ok) throw new Error('Gagal mengakses spreadsheet');
       const rawText = await response.text();
-      const jsonString = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1];
-      const data = JSON.parse(jsonString);
+      const jsonMatch = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
+      if (!jsonMatch) throw new Error('Respons JSON tidak valid');
+      const data = JSON.parse(jsonMatch[1]);
       const rows = data.table.rows;
 
-      // Mapping kolom sesuai urutan di sheet:
-      // A(0) id, B(1) timestamp, C(2) nama, D(3) penerbit, E(4) tahun,
-      // F(5) tipe (horizontal/vertical), G(6) tombol_transkrip (ada/tidak),
-      // H(7) url_gambar_depan, I(8) url_gambar_belakang
       const certificatesData = rows.map(row => {
         return {
           id: row.c[0] ? String(row.c[0].v) : '',
@@ -124,15 +129,49 @@
           imgDepan: row.c[7] ? String(row.c[7].v) : '',
           imgBelakang: row.c[8] ? String(row.c[8].v) : ''
         };
-      }).filter(cert => cert.imgDepan !== ''); // Hanya yang punya gambar depan
+      }).filter(cert => cert.imgDepan !== '');
 
       renderCertificates(certificatesData);
     } catch (err) {
       console.error(err);
-      container.innerHTML = `<div class="loading-status" style="grid-column:1/-1; text-align:center; color:#B22222;">Gagal memuat API Google Sheets<br>silahkan refresh browser anda.</div>`;
+      container.innerHTML = `
+        <div class="loading-status" style="grid-column:1/-1; text-align:center; color:#B22222;">
+          Gagal memuat data. Pastikan Google Sheets sudah dipublikasikan.
+          <br><br>
+          <button class="cert-btn btn-secondary" id="retry-fetch" style="max-width:200px; margin:0 auto;">
+            ↻ Coba Lagi
+          </button>
+        </div>
+      `;
+      const retryBtn = document.getElementById('retry-fetch');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', fetchCertificates);
+      }
     }
   }
 
   // Jalankan saat DOM siap
   document.addEventListener('DOMContentLoaded', fetchCertificates);
+
+  // ==================================================
+  // EVENT UNTUK MENUTUP MODAL (dari script.js, tetapi kita jaga-jaga)
+  // ==================================================
+  // Pastikan modal bisa ditutup jika tombol close di-klik
+  const closeModalBtn = document.getElementById('closeModal');
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', function() {
+      if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => { if (modalImg) modalImg.src = ''; }, 300);
+      }
+    });
+  }
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.remove('show');
+        setTimeout(() => { if (modalImg) modalImg.src = ''; }, 300);
+      }
+    });
+  }
 })();
