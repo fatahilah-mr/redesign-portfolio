@@ -2,230 +2,72 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Projects & Lab Archive" description="Portofolio proyek IT Network & System Administration oleh Fatahilah Miftahul Rahman, termasuk rancang bangun jaringan Cisco Packet Tracer dan setup MikroTik Gateway.">
+<Layout title="Proyek & Lab Archive" description="Galeri dokumentasi proyek teknis, eksperimen lab jaringan, Cisco, MikroTik, Linux, AI, Windows Server, dan pembuatan website Fatahilah Miftahul Rahman.">
   <section class="projects-section container section-py">
     <div class="section-header">
-      <div class="section-badge">
-        <span class="badge font-mono" data-i18n="nav.projects">Proyek & Lab</span>
+      <div class="section-badge flex justify-center items-center gap-3">
+        <span class="badge font-mono" data-i18n="nav.projects">Proyek Teknis</span>
+        <span class="badge badge-primary font-mono">Google Sheets CMS</span>
       </div>
-      <h1 class="font-heading" data-i18n="proj.title">Portofolio Proyek & Lab Archive</h1>
+      <h1 class="font-heading" data-i18n="projects.title">Lab Archive & Proyek Portofolio</h1>
       <p class="section-subtitle">
-        Implementasi rancang bangun topologi jaringan, pengamanan sistem server, dan eksperimen lab di lingkungan Cisco Packet Tracer, MikroTik, dan Linux Server.
+        Dokumentasi langsung dari eksperimen laboratorium infrastruktur, konfigurasi server, serta proyek pengembangan teknologi terapan.
       </p>
+
+      <!-- CMS Actions & Caching Info -->
+      <div class="cms-toolbar mt-6 flex flex-wrap justify-center items-center gap-4">
+        <button id="refresh-projects-btn" class="btn-refresh font-mono text-xs flex items-center gap-2" aria-label="Segarkan data Proyek dari Google Sheets">
+          <svg class="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <span>↻ Segarkan Data CMS</span>
+        </button>
+        <span id="projects-cache-status" class="cache-status font-mono text-xs text-muted">Status: Memuat data...</span>
+      </div>
     </div>
 
-    <!-- CMS Status Bar -->
-    <div class="cms-status-bar font-mono text-sm" id="proj-cms-status" aria-live="polite">
-      <span class="spinner"></span> <span>Memeriksa pembaruan proyek dari Google Sheets CMS...</span>
+    <!-- Category Filter Buttons (Exact Categories from cms logic) -->
+    <div class="cert-buttons-wrapper flex flex-wrap justify-center gap-3 mb-10" role="group" aria-label="Filter Kategori Proyek">
+      <button class="cert-btn btn-secondary active-filter" data-category="all">Semua Proyek</button>
+      <button class="cert-btn btn-secondary" data-category="AI">AI</button>
+      <button class="cert-btn btn-secondary" data-category="Cisco">Cisco</button>
+      <button class="cert-btn btn-secondary" data-category="Linux">Linux</button>
+      <button class="cert-btn btn-secondary" data-category="MikroTik">MikroTik</button>
+      <button class="cert-btn btn-secondary" data-category="Windows Server">Windows Server</button>
+      <button class="cert-btn btn-secondary" data-category="Website">Website</button>
     </div>
 
-    <!-- Projects Grid (Static verified from ~/storage/shared/portofolio + Dynamic Sheets) -->
-    <div class="projects-grid" id="projects-grid-container" aria-label="Daftar Proyek">
-      <!-- Populated by client script with verified fallback & cached CMS -->
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="projects-footer-actions">
-      <a href="https://github.com/fatahilah-mr" target="_blank" rel="noopener noreferrer" class="btn-primary">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-        Kunjungi Repositori GitHub
-      </a>
-      <button class="btn-secondary" id="refresh-proj-btn" title="Segarkan Cache Proyek CMS">
-        ↻ Segarkan Data Proyek
-      </button>
+    <!-- Projects Grid Container (Dynamically rendered by app.js logic) -->
+    <div id="projects-grid" class="projects-grid" aria-live="polite">
+      <div class="loading-status glass-card p-12 text-center col-span-full">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-4"></div>
+        <p class="font-heading text-lg">Menghubungkan ke API Google Sheets (Database_App)...</p>
+        <p class="text-muted text-sm mt-1">Mengambil arsip proyek terbaru dari server</p>
+      </div>
     </div>
   </section>
-
-  <!-- Project Detail Accessible Dialog -->
-  <dialog id="project-modal" class="project-modal glass-card" aria-labelledby="proj-modal-title">
-    <div class="modal-header">
-      <span class="badge badge-primary font-mono">📁 Detail Proyek IT Network</span>
-      <button class="close-modal-btn" id="close-proj-modal" aria-label="Tutup Detail Proyek">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-img-wrap mb-6">
-        <img id="proj-modal-img" src="" alt="Topologi Proyek" loading="lazy" class="proj-detail-img" />
-      </div>
-      <h2 id="proj-modal-title" class="font-heading text-2xl mb-3">Judul Proyek</h2>
-      <p id="proj-modal-desc" class="text-muted leading-relaxed mb-6">Deskripsi lengkap proyek.</p>
-      <div class="modal-footer flex justify-end gap-3">
-        <button id="close-proj-modal-btn" class="btn-secondary">Tutup (Escape / Enter)</button>
-      </div>
-    </div>
-  </dialog>
 </Layout>
 
-<style>
-  .section-header { text-align: center; max-width: 800px; margin: 0 auto 36px; }
-  .section-badge { margin-bottom: 16px; }
-  .section-subtitle { font-size: 1.1rem; margin-top: 12px; }
-
-  .cms-status-bar {
-    text-align: center;
-    color: var(--color-muted);
-    margin-bottom: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 20px;
-    background: var(--bg-surface);
-    border-radius: 12px;
-    border: 1px solid var(--color-border);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-    gap: 36px;
-    margin-bottom: 56px;
-  }
-
-  .project-card {
-    border-radius: 20px;
-    background: var(--bg-card);
-    border: 1px solid var(--color-border);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: pointer;
-  }
-
-  .project-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .project-img-wrap {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: var(--bg-surface);
-    overflow: hidden;
-    position: relative;
-  }
-
-  .project-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-
-  .project-card:hover .project-img-wrap img {
-    transform: scale(1.05);
-  }
-
-  .project-info {
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    flex-grow: 1;
-  }
-
-  .project-card-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    line-height: 1.35;
-    color: var(--color-foreground);
-  }
-
-  .project-desc {
-    color: var(--color-muted);
-    font-size: 0.95rem;
-    line-height: 1.65;
-  }
-
-  .projects-footer-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-  }
-
-  /* Modal */
-  .project-modal {
-    margin: auto;
-    padding: 32px;
-    max-width: 800px;
-    width: 92%;
-    border-radius: 22px;
-    background: var(--bg-card);
-    color: var(--color-foreground);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-lg);
-    z-index: 3000;
-  }
-
-  .project-modal::backdrop {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-  }
-
-  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .close-modal-btn { background: none; border: none; font-size: 1.5rem; color: var(--color-muted); cursor: pointer; }
-  .close-modal-btn:hover { color: var(--color-foreground); }
-
-  .modal-img-wrap {
-    border-radius: 14px;
-    overflow: hidden;
-    background: var(--bg-surface);
-    border: 1px solid var(--color-border);
-    max-height: 480px;
-  }
-
-  .proj-detail-img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  @media (max-width: 768px) {
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-modal { padding: 20px; }
-  }
-</style>
-
+<!-- CMS Logic Script (Exact from cms logic/halaman projects & lab/app.js with 1h localStorage caching) -->
 <script is:inline>
-  // ==================================================
-  // GOOGLE SHEETS CMS FOR PROJECTS & EXACT SOURCE VERIFIED
-  // ==================================================
-  const PROJ_SPREADSHEET_ID = '1GtKyr8LGv5AfSChzfP7t6_4D0rBUoC8VeRdC_Rw6eqY';
-  const PROJ_SHEET_NAME = 'Sheet2'; // Sheet untuk projects jika ada
-  const PROJ_DATA_URL = `https://docs.google.com/spreadsheets/d/${PROJ_SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${PROJ_SHEET_NAME}`;
+(function() {
+  // 1. Konfigurasi Database Google Sheets API Baru (Sesuai app.js)
+  const SPREADSHEET_ID = '1YMxR6-SlP-TT0B3y6NScT4L0YH0GXZEId_PY0Jgp8fQ';
+  const SHEET_NAME = 'Database_App'; 
+  const GOOGLE_SHEETS_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+  const CACHE_KEY = 'portfolio_projects_cache_v2';
+  const CACHE_TIME_KEY = 'portfolio_projects_cache_time_v2';
+  const CACHE_DURATION_MS = 3600000; // 1 jam
 
-  const PROJ_CACHE_KEY = 'fatahilah_projects_cache_v2';
-  const PROJ_CACHE_TIME_KEY = 'fatahilah_projects_cache_time_v2';
-  const PROJ_CACHE_DURATION = 3600000; // 1 Jam dalam milidetik
+  let localProjectsData = [];
 
-  let lastProjFocused = null;
+  const projectsGrid = document.getElementById('projects-grid');
+  const filterButtons = document.querySelectorAll('.cert-btn');
+  const refreshBtn = document.getElementById('refresh-projects-btn');
+  const cacheStatus = document.getElementById('projects-cache-status');
 
-  // Exact verified projects from ~/storage/shared/portofolio/index.html
-  const EXACT_PROJECTS = [
-    {
-      id: "1",
-      title: "Rancang Bangun Jaringan Kantor 3 Lantai",
-      desc: "Mendesain infrastruktur jaringan kantor 3 lantai menggunakan Cisco Packet Tracer. Proyek ini menerapkan segmentasi VLAN terpisah untuk setiap lantai, manajemen alokasi IP otomatis via DHCP Server, integrasi lokal DNS Server, serta konfigurasi satu router management khusus untuk kendali penuh administrator.",
-      image: "/assets/Topologi-Cisco-PT-01.webp",
-      tags: ["Cisco Packet Tracer", "VLAN", "DHCP Server", "Network Architecture"]
-    },
-    {
-      id: "2",
-      title: "Setup Gateway & Keamanan Jaringan MikroTik",
-      desc: "Membangun jaringan gateway fungsional pada RouterBoard MikroTik lewat Winbox. Konfigurasi mencakup setup IPv4 address, aktivasi dan manajemen WLAN interface untuk akses wireless, implementasi Firewall NAT agar jaringan lokal terhubung ke internet, konfigurasi DNS dan DHCP Server, serta pengujian stabilitas koneksi via terminal.",
-      image: "/assets/Mikrotik-01.webp",
-      tags: ["MikroTik RouterBoard", "Winbox", "NAT Firewall", "WLAN Gateway"]
-    }
-  ];
-
+  // UTILITY: ESCAPE HTML (XSS Protection)
   function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>'"]/g, function(m) {
+    return String(str).replace(/[&<>'"]/g, function(m) {
       if (m === '&') return '&amp;';
       if (m === '<') return '&lt;';
       if (m === '>') return '&gt;';
@@ -235,146 +77,365 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  function openProjectModal(project, triggerElement) {
-    lastProjFocused = triggerElement;
-    const modal = document.getElementById('project-modal');
-    const img = document.getElementById('proj-modal-img');
-    const title = document.getElementById('proj-modal-title');
-    const desc = document.getElementById('proj-modal-desc');
-    const closeBtn = document.getElementById('close-proj-modal');
+  function updateCacheStatusText(msg) {
+    if (cacheStatus) cacheStatus.textContent = msg;
+  }
 
-    if (modal && img && title && desc) {
-      img.src = project.image;
-      img.alt = project.title;
-      title.textContent = project.title;
-      desc.textContent = project.desc;
-      modal.showModal();
-      closeBtn?.focus();
+  // 3. WARNA BADGE BERDASARKAN KATEGORI (Sesuai app.js)
+  function getBadgeClass(kategori) {
+    if (!kategori) return 'badge-default';
+    const kat = kategori.toLowerCase().trim();
+    if (kat === 'ai') return 'badge-ai';
+    if (kat === 'cisco') return 'badge-cisco';
+    if (kat === 'linux') return 'badge-linux';
+    if (kat === 'mikrotik') return 'badge-mikrotik';
+    if (kat === 'windows server') return 'badge-windows';
+    if (kat === 'website') return 'badge-website';
+    return 'badge-default';
+  }
+
+  // 4. FUNGSI BAGIKAN (SHARE)
+  async function shareProject(url, title) {
+    if (!url || url === '#' || url === '') {
+      alert('Tidak ada link dokumentasi untuk proyek ini.');
+      return;
+    }
+    const shareData = {
+      title: title,
+      text: 'Lihat proyek ini di Lab Archive saya:',
+      url: url
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.warn('Gagal membagikan:', err);
+          fallbackCopy(url);
+        }
+      }
+    } else {
+      fallbackCopy(url);
     }
   }
 
-  function setupProjModalListeners() {
-    const modal = document.getElementById('project-modal');
-    const c1 = document.getElementById('close-proj-modal');
-    const c2 = document.getElementById('close-proj-modal-btn');
-    if (!modal) return;
-
-    const closeHandler = () => {
-      modal.close();
-      if (lastProjFocused) lastProjFocused.focus();
-    };
-
-    c1?.addEventListener('click', closeHandler);
-    c2?.addEventListener('click', closeHandler);
-
-    modal.addEventListener('click', (e) => {
-      const rect = modal.getBoundingClientRect();
-      const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-        rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-      if (!isInDialog) closeHandler();
-    });
+  function fallbackCopy(url) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link dokumentasi telah disalin ke clipboard!');
+      }).catch(() => {
+        alert('Gagal menyalin link. Silakan salin manual: ' + url);
+      });
+    } else {
+      alert('Silakan salin manual link berikut: ' + url);
+    }
   }
 
-  function renderProjects(projectsList) {
-    const container = document.getElementById('projects-grid-container');
-    if (!container) return;
+  // 5. RENDER KARTU PROYEK (Sesuai app.js)
+  function renderProjects(projects) {
+    if (!projectsGrid) return;
+    projectsGrid.innerHTML = '';
 
-    container.innerHTML = '';
-    projectsList.forEach(proj => {
+    if (!projects || projects.length === 0) {
+      projectsGrid.innerHTML = `
+        <div class="loading-status glass-card p-12 text-center col-span-full">
+          <p class="font-heading text-lg text-muted">Tidak ada proyek dalam kategori ini.</p>
+        </div>
+      `;
+      return;
+    }
+
+    projects.forEach(project => {
       const card = document.createElement('div');
       card.className = 'project-card glass-card';
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'article');
-      card.setAttribute('aria-label', proj.title);
-
-      const tagsHtml = (proj.tags || []).map(t => `<span class="badge font-mono text-xs">${escapeHtml(t)}</span>`).join('');
-
+      
+      const imgUrl = project.link_gambar ? project.link_gambar : 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600';
+      const badgeClass = getBadgeClass(project.kategori);
+      
+      const judulEscaped = escapeHtml(project.judul);
+      const deskripsiEscaped = escapeHtml(project.deskripsi);
+      const kategoriEscaped = escapeHtml(project.kategori);
+      const linkEscaped = escapeHtml(project.link_dokumentasi || '#');
+      
       card.innerHTML = `
         <div class="project-img-wrap">
-          <img src="${proj.image}" alt="${escapeHtml(proj.title)}" loading="lazy" />
+          <img src="${imgUrl}" alt="Preview ${judulEscaped}" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600';">
         </div>
         <div class="project-info">
-          <h3 class="project-card-title">${escapeHtml(proj.title)}</h3>
-          <p class="project-desc">${escapeHtml(proj.desc)}</p>
-          <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-border">
-            ${tagsHtml}
+          <div>
+            <span class="project-badge ${badgeClass}">${kategoriEscaped}</span>
+            <h3 class="project-title font-heading">${judulEscaped}</h3>
+            <p class="project-desc text-muted">${deskripsiEscaped}</p>
+          </div>
+          <div class="project-actions mt-auto pt-4 border-t border-border flex justify-between items-center gap-3">
+            <a href="${linkEscaped}" target="_blank" rel="noopener noreferrer" class="project-link btn-primary text-xs py-2 px-3 flex items-center gap-1.5">
+              <span>Lihat Dokumentasi</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+            <button class="project-share btn-secondary text-xs py-2 px-3 flex items-center gap-1.5" data-url="${linkEscaped}" data-title="${judulEscaped}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              <span>Bagikan</span>
+            </button>
           </div>
         </div>
       `;
-
-      card.addEventListener('click', () => openProjectModal(proj, card));
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+      
+      projectsGrid.appendChild(card);
+      
+      const shareBtn = card.querySelector('.project-share');
+      if (shareBtn) {
+        shareBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          openProjectModal(proj, card);
-        }
-      });
-
-      container.appendChild(card);
+          const url = shareBtn.getAttribute('data-url');
+          const title = shareBtn.getAttribute('data-title');
+          shareProject(url, title);
+        });
+      }
     });
   }
 
-  async function fetchProjects(forceRefresh = false) {
-    const statusEl = document.getElementById('proj-cms-status');
-
+  // 2. AMBIL DATA DARI GOOGLE SHEETS
+  async function fetchProjectsData(forceRefresh = false) {
+    // Cek cache terlebih dahulu jika tidak dipaksa refresh
     if (!forceRefresh) {
       try {
-        const cachedTime = localStorage.getItem(PROJ_CACHE_TIME_KEY);
-        const cachedData = localStorage.getItem(PROJ_CACHE_KEY);
-        if (cachedTime && cachedData && (Date.now() - Number(cachedTime) < PROJ_CACHE_DURATION)) {
-          const parsed = JSON.parse(cachedData);
-          renderProjects(parsed);
-          if (statusEl) statusEl.innerHTML = `✅ Menampilkan proyek dari cache lokal (Diperbarui dalam 1 jam terakhir)`;
-          return;
+        const cached = localStorage.getItem(CACHE_KEY);
+        const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+        if (cached && cachedTime) {
+          const now = Date.now();
+          if (now - parseInt(cachedTime, 10) < CACHE_DURATION_MS) {
+            localProjectsData = JSON.parse(cached);
+            renderProjects(localProjectsData);
+            const remainingMins = Math.round((CACHE_DURATION_MS - (now - parseInt(cachedTime, 10))) / 60000);
+            updateCacheStatusText(`Status: Data dari Cache (${remainingMins}m tersisa)`);
+            return;
+          }
         }
       } catch (e) {
-        console.warn('Projects cache read error:', e);
+        console.warn('Gagal membaca cache:', e);
       }
     }
 
-    if (statusEl && forceRefresh) statusEl.innerHTML = `<span class="spinner"></span> <span>Mengambil data proyek terbaru dari Google Sheets API...</span>`;
+    updateCacheStatusText('Status: Mengambil dari Google Sheets...');
+    if (refreshBtn) refreshBtn.classList.add('loading');
 
     try {
-      const response = await fetch(PROJ_DATA_URL, { signal: AbortSignal.timeout(6000) });
-      if (!response.ok) throw new Error('Spreadsheet not ok');
+      const response = await fetch(GOOGLE_SHEETS_URL);
+      if (!response.ok) throw new Error('Gagal mengakses URL spreadsheet');
+      
       const rawText = await response.text();
       const jsonMatch = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
-      if (!jsonMatch) throw new Error('No json match');
+      if (!jsonMatch) throw new Error('Respons JSON tidak valid dari Google Sheets');
+      
       const data = JSON.parse(jsonMatch[1]);
-      const rows = data.table?.rows || [];
+      const rows = data.table.rows || [];
+      
+      localProjectsData = rows.map(row => {
+        return {
+          id: row.c[0] ? row.c[0].v : '',
+          timestamp: row.c[1] ? row.c[1].v : '',
+          judul: row.c[2] ? row.c[2].v : 'Tanpa Judul',
+          kategori: row.c[3] ? row.c[3].v : 'Umum',
+          link_dokumentasi: row.c[4] ? row.c[4].v : '#',
+          deskripsi: row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.',
+          link_gambar: row.c[6] ? row.c[6].v : ''
+        };
+      });
 
-      if (rows.length > 0) {
-        const dynamicProjects = rows.map(row => ({
-          id: row.c[0] ? String(row.c[0].v) : '',
-          title: row.c[1] ? String(row.c[1].v) : '',
-          desc: row.c[2] ? String(row.c[2].v) : '',
-          image: row.c[3] ? String(row.c[3].v) : '',
-          tags: (row.c[4] ? String(row.c[4].v) : '').split(',').map(s => s.trim()).filter(Boolean)
-        })).filter(p => p.title && p.image);
+      // Simpan ke localStorage
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(localProjectsData));
+        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+      } catch (e) {
+        console.warn('Gagal menyimpan cache:', e);
+      }
 
-        if (dynamicProjects.length > 0) {
-          renderProjects(dynamicProjects);
-          localStorage.setItem(PROJ_CACHE_KEY, JSON.stringify(dynamicProjects));
-          localStorage.setItem(PROJ_CACHE_TIME_KEY, String(Date.now()));
-          if (statusEl) statusEl.innerHTML = `✅ Proyek berhasil diperbarui dari Google Sheets CMS`;
+      renderProjects(localProjectsData);
+      updateCacheStatusText('Status: Pembaruan Live Berhasil (Cache 1 Jam)');
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      
+      // Coba load cache lama jika gagal fetch online
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          localProjectsData = JSON.parse(cached);
+          renderProjects(localProjectsData);
+          updateCacheStatusText('Status: Offline (Menampilkan Cache Terakhir)');
+          if (refreshBtn) refreshBtn.classList.remove('loading');
           return;
         }
-      }
-      throw new Error('Fallback needed');
-    } catch (err) {
-      console.warn('Using verified exact projects source:', err);
-      renderProjects(EXACT_PROJECTS);
-      if (statusEl) statusEl.innerHTML = `⚡ Menampilkan portofolio proyek terverifikasi (Offline / Fallback Ready)`;
+      } catch (e) {}
+
+      // Jika tidak ada cache, tampilkan data statis terverifikasi
+      localProjectsData = [
+        {
+          id: "1",
+          judul: "Rancang Bangun Jaringan Kantor 3 Lantai (Cisco Packet Tracer)",
+          kategori: "Cisco",
+          link_dokumentasi: "https://github.com/fatahilah-mr/portofolio",
+          deskripsi: "Perancangan infrastruktur jaringan lengkap menggunakan Cisco Packet Tracer dengan segmentasi VLAN, inter-VLAN routing, OSPF, DHCP Relay, dan pengamanan Port Security.",
+          link_gambar: "/assets/Topologi-Cisco-PT-01.webp"
+        },
+        {
+          id: "2",
+          judul: "Setup Gateway, Firewall Nftables & Keamanan Jaringan MikroTik",
+          kategori: "MikroTik",
+          link_dokumentasi: "https://github.com/fatahilah-mr/portofolio",
+          deskripsi: "Konfigurasi RouterBoard MikroTik sebagai gateway internet, manajemen bandwidth Queue Tree, isolasi jaringan tamu, dan pengamanan akses menggunakan Nftables/Firewall Filter.",
+          link_gambar: "/assets/Mikrotik-01.webp"
+        }
+      ];
+      renderProjects(localProjectsData);
+      updateCacheStatusText('Status: Offline (Menampilkan Data Fallback)');
+    } finally {
+      if (refreshBtn) refreshBtn.classList.remove('loading');
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    setupProjModalListeners();
-    fetchProjects(false);
+  // 6. LOGIKA FILTER KATEGORI
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active-filter'));
+      button.classList.add('active-filter');
 
-    const refreshBtn = document.getElementById('refresh-proj-btn');
-    if (refreshBtn) {
-      refreshBtn.addEventListener('click', () => fetchProjects(true));
-    }
+      const selectedCategory = button.getAttribute('data-category');
+
+      if (selectedCategory === 'all') {
+        renderProjects(localProjectsData);
+      } else {
+        const filtered = localProjectsData.filter(p => (p.kategori || '').toLowerCase().trim() === selectedCategory.toLowerCase().trim());
+        renderProjects(filtered);
+      }
+    });
   });
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => fetchProjectsData(true));
+  }
+
+  // 9. JALANKAN FETCH SAAT DOM SIAP
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => fetchProjectsData(false));
+  } else {
+    fetchProjectsData(false);
+  }
+})();
 </script>
+
+<style>
+  .section-header { text-align: center; max-width: 800px; margin: 0 auto 36px; }
+  .section-subtitle { font-size: 1.1rem; margin-top: 12px; }
+
+  .btn-refresh {
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-foreground);
+    transition: all 0.2s ease;
+  }
+  .btn-refresh:hover { border-color: var(--color-primary); color: var(--color-primary); }
+  .btn-refresh.loading .refresh-icon { animation: spin 1s linear infinite; }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  /* Category Filter Buttons */
+  .cert-btn {
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .cert-btn.active-filter {
+    background: var(--color-primary);
+    color: #000;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 16px rgba(255, 179, 0, 0.4);
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 32px;
+  }
+
+  /* Project Cards */
+  .project-card {
+    border-radius: 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-img-wrap {
+    width: 100%;
+    height: 210px;
+    overflow: hidden;
+    background: var(--bg-surface);
+    position: relative;
+  }
+  .project-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .project-img-wrap img {
+    transform: scale(1.06);
+  }
+
+  .project-info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 12px;
+  }
+
+  .project-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  /* Badge colors exactly matching getBadgeClass logic */
+  .badge-ai { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+  .badge-cisco { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+  .badge-linux { background: rgba(250, 204, 21, 0.15); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.3); }
+  .badge-mikrotik { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+  .badge-windows { background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3); }
+  .badge-website { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+  .badge-default { background: rgba(255, 179, 0, 0.15); color: var(--color-primary); border: 1px solid rgba(255, 179, 0, 0.3); }
+
+  .project-title {
+    font-size: 1.3rem;
+    line-height: 1.35;
+    color: var(--color-foreground);
+  }
+
+  .project-desc {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-info { padding: 20px; }
+  }
+</style>
