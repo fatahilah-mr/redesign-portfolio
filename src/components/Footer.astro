@@ -1,0 +1,99 @@
+---
+import { ui } from '../i18n/ui';
+---
+
+<footer class="portfolio-footer">
+  <div class="container footer-content">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="font-heading text-xl">Fatahilah Miftahul Rahman</span>
+        <p class="footer-tagline">Network Administrator & AI Prompt Specialist</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/fatahilahmr" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        <a href="https://linkedin.com/in/fatahilahmr" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        <a href="/contact" class="footer-link" data-i18n="nav.contact">Kontak</a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright text-sm" data-i18n="footer.copyright">
+        © 2026 Fatahilah. Hak Cipta Dilindungi. Dibuat dengan presisi menggunakan Astro & Vanilla CSS.
+      </p>
+      <div class="tech-badge">
+        <span class="badge">Astro v5 + Vanilla CSS</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .portfolio-footer {
+    border-top: 1px solid var(--color-border);
+    background-color: var(--bg-surface);
+    margin-top: auto;
+    padding: 48px 0 32px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .footer-tagline {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .footer-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .text-sm {
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,0 +1,300 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Sertifikat & Kompetensi" description="Daftar Sertifikasi Resmi dan Penghargaan LKS Fatahilah Miftahul Rahman">
+  <section class="certificates-section container section-py">
+    <div class="section-header">
+      <div class="section-badge">
+        <span class="badge font-mono" data-i18n="nav.certificates">Sertifikat</span>
+      </div>
+      <h1 class="font-heading" data-i18n="cert.title">Sertifikasi & Penghargaan Kompetensi</h1>
+      <p class="section-subtitle">
+        Bukti pencapaian akademik dan validasi keahlian teknis di bidang administrasi sistem jaringan dan kompetensi IT.
+      </p>
+    </div>
+
+    <!-- Certificates Grid -->
+    <div class="certificates-grid" id="certs-grid">
+      <!-- Card 1: LKS #1 Purworejo -->
+      <div class="cert-card glass-card card-gold" data-cert-id="cert-lks">
+        <div class="cert-badge-top">
+          <span class="badge badge-gold font-mono">🏆 Juara 1 LKS 2026</span>
+          <span class="cert-status font-mono text-accent">✔ Terverifikasi</span>
+        </div>
+        
+        <h2 class="cert-title font-heading">
+          Juara 1 LKS IT Network System Administration
+        </h2>
+        
+        <div class="cert-info font-mono">
+          <div><span data-i18n="cert.issuer">Penerbit</span>: Cabang Dinas Pendidikan Wilayah VIII / MGMP TKJ</div>
+          <div><span data-i18n="cert.date">Tanggal Terbit</span>: 2026</div>
+        </div>
+
+        <p class="cert-snippet">
+          Penghargaan Juara 1 tingkat Kabupaten Purworejo pada Lomba Kompetensi Siswa (LKS) jenjang SMK bidang IT Network System Administration.
+        </p>
+
+        <button class="btn-primary open-cert-btn" data-cert-id="cert-lks" aria-haspopup="dialog">
+          Lihat Transkrip & Lampiran
+        </button>
+      </div>
+
+      <!-- Card 2: Cisco Network Academy -->
+      <div class="cert-card glass-card" data-cert-id="cert-cisco">
+        <div class="cert-badge-top">
+          <span class="badge font-mono">Cisco NetAcad</span>
+          <span class="cert-status font-mono text-primary">✔ Terverifikasi</span>
+        </div>
+        
+        <h2 class="cert-title font-heading">
+          Cisco Certified Network Associate (CCNA) Coursework
+        </h2>
+        
+        <div class="cert-info font-mono">
+          <div><span data-i18n="cert.issuer">Penerbit</span>: Cisco Networking Academy / SMK TKJ</div>
+          <div><span data-i18n="cert.date">Tanggal Terbit</span>: 2025</div>
+        </div>
+
+        <p class="cert-snippet">
+          Penyelesaian kurikulum resmi Cisco Routing & Switching, IPv4/IPv6 Subnetting, VLAN Trunking, dan Troubleshooting Topologi.
+        </p>
+
+        <button class="btn-secondary open-cert-btn" data-cert-id="cert-cisco" aria-haspopup="dialog">
+          Lihat Transkrip & Lampiran
+        </button>
+      </div>
+
+      <!-- Card 3: Mikrotik MTCNA Training / Kompetensi -->
+      <div class="cert-card glass-card" data-cert-id="cert-mikrotik">
+        <div class="cert-badge-top">
+          <span class="badge font-mono">Mikrotik Academy</span>
+          <span class="cert-status font-mono text-primary">✔ Terverifikasi</span>
+        </div>
+        
+        <h2 class="cert-title font-heading">
+          Mikrotik RouterOS Competency & Network Administration
+        </h2>
+        
+        <div class="cert-info font-mono">
+          <div><span data-i18n="cert.issuer">Penerbit</span>: Laboratorium TKJ & Praktik Industri</div>
+          <div><span data-i18n="cert.date">Tanggal Terbit</span>: 2025</div>
+        </div>
+
+        <p class="cert-snippet">
+          Kompetensi dalam manajemen bandwidth QoS, Queue Tree, Firewall Filter & Mangle, serta routing nirkabel Mikrotik.
+        </p>
+
+        <button class="btn-secondary open-cert-btn" data-cert-id="cert-mikrotik" aria-haspopup="dialog">
+          Lihat Transkrip & Lampiran
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accessible Transcript Modal with Focus Trap & Focus Return (desktop-a11y-specialist) -->
+  <dialog id="cert-dialog" class="cert-dialog glass-card" aria-labelledby="dialog-title" aria-describedby="dialog-snippet">
+    <div class="dialog-header">
+      <span class="badge badge-gold font-mono" id="dialog-badge">Transkrip Resmi</span>
+      <button class="close-dialog-btn" id="close-dialog" aria-label="Tutup Transkrip Sertifikat">✕</button>
+    </div>
+
+    <div class="dialog-body">
+      <h2 id="dialog-title" class="font-heading text-2xl">Judul Sertifikat</h2>
+      
+      <div class="dialog-meta font-mono">
+        <div><strong>Penerbit:</strong> <span id="dialog-issuer"></span></div>
+        <div><strong>Tahun:</strong> <span id="dialog-year"></span></div>
+        <div><strong>Status:</strong> <span class="text-accent">✔ Valid / Resmi Terverifikasi</span></div>
+      </div>
+
+      <p id="dialog-snippet" class="dialog-desc">Deskripsi kompetensi...</p>
+
+      <div class="transcript-box font-mono">
+        <h3 class="text-sm uppercase text-primary">Rincian Modul / Nilai Kompetensi</h3>
+        <ul id="dialog-modules" class="module-list">
+          <!-- Populated by script -->
+        </ul>
+      </div>
+
+      <div class="dialog-footer">
+        <button id="close-dialog-btn-2" class="btn-secondary" style="width: 100%;">
+          Tutup Transkrip (Escape / Enter)
+        </button>
+      </div>
+    </div>
+  </dialog>
+</Layout>
+
+<style>
+  .section-header { text-align: center; max-width: 780px; margin: 0 auto 56px; }
+  .section-badge { margin-bottom: 16px; }
+  .section-subtitle { font-size: 1.1rem; margin-top: 12px; }
+
+  .certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 32px;
+  }
+
+  .cert-card {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card-gold { border-top: 4px solid var(--color-accent); }
+
+  .cert-badge-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cert-title { font-size: 1.45rem; line-height: 1.35; }
+  .cert-info { font-size: 0.85rem; color: var(--color-muted); display: flex; flex-direction: column; gap: 4px; }
+  .cert-snippet { font-size: 0.98rem; color: var(--color-muted); line-height: 1.6; margin-top: 8px; margin-bottom: 12px; }
+
+  .text-accent { color: var(--color-accent); }
+  .text-primary { color: var(--color-primary); }
+
+  /* Dialog Modal */
+  .cert-dialog {
+    margin: auto;
+    padding: 36px;
+    max-width: 650px;
+    width: 92%;
+    border-radius: 20px;
+    background: var(--bg-card);
+    color: var(--color-foreground);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    z-index: 2500;
+  }
+
+  .cert-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  .dialog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .close-dialog-btn { background: none; border: none; font-size: 1.5rem; color: var(--color-muted); cursor: pointer; }
+  .close-dialog-btn:hover { color: var(--color-foreground); }
+  .dialog-meta { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: var(--bg-surface); border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; }
+  .dialog-desc { font-size: 1.02rem; line-height: 1.7; margin-bottom: 20px; }
+
+  .transcript-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--color-border);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+
+  .module-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 0.875rem; }
+  .module-list li { display: flex; align-items: center; gap: 10px; }
+  .module-list li::before { content: '✔'; color: var(--color-primary); font-weight: 700; }
+
+  @media (max-width: 640px) {
+    .certificates-grid { grid-template-columns: 1fr; }
+    .cert-card, .cert-dialog { padding: 24px; }
+  }
+</style>
+
+<script is:inline>
+  const CERT_DATA = {
+    'cert-lks': {
+      title: "Juara 1 LKS IT Network System Administration 2026",
+      issuer: "Cabang Dinas Pendidikan Wilayah VIII / MGMP TKJ Purworejo",
+      year: "2026",
+      desc: "Bukti prestasi tertinggi dalam kompetensi perancangan topologi, administrasi server Linux & Windows, konfigurasi router Cisco/Mikrotik, serta keamanan jaringan.",
+      modules: [
+        "Modul A: Linux Server Administration (Debian/Ubuntu/CentOS) - Nilai: A+",
+        "Modul B: Cisco & Mikrotik Routing Switching Topology - Nilai: A+",
+        "Modul C: Windows Server Active Directory & DNS - Nilai: A+",
+        "Modul D: Network Security & Troubleshooting - Nilai: A+"
+      ]
+    },
+    'cert-cisco': {
+      title: "Cisco Certified Network Associate (CCNA) Coursework",
+      issuer: "Cisco Networking Academy / SMK TKJ",
+      year: "2025",
+      desc: "Kompetensi mendalam dalam protokol routing OSPF, BGP, Inter-VLAN routing, Access Control Lists (ACL), dan pemecahan masalah jaringan.",
+      modules: [
+        "Network Fundamentals & OSI Layer - Nilai: A",
+        "LAN Switching Technologies & VLANs - Nilai: A+",
+        "Routing Protocols (OSPF Single & Multi-Area) - Nilai: A",
+        "IPv4 / IPv6 Subnetting & Addressing - Nilai: A+"
+      ]
+    },
+    'cert-mikrotik': {
+      title: "Mikrotik RouterOS Competency & Network Administration",
+      issuer: "Laboratorium TKJ & Praktik Industri",
+      year: "2025",
+      desc: "Penguasaan manajemen mikrotik dari dasar hingga tingkat lanjut termasuk QoS HTB, Firewall Filter, Mangle, dan Wireless Routing.",
+      modules: [
+        "RouterOS Configuration & Backup - Nilai: A+",
+        "Firewall Filter Rules & Mangle Packet Marking - Nilai: A+",
+        "Bandwidth Management (Queue Simple & Queue Tree) - Nilai: A+",
+        "Wireless Bridge & Access Point Security - Nilai: A"
+      ]
+    }
+  };
+
+  let lastFocusedElement = null;
+
+  function setupCertDialog() {
+    const dialog = document.getElementById('cert-dialog');
+    const closeBtn1 = document.getElementById('close-dialog');
+    const closeBtn2 = document.getElementById('close-dialog-btn-2');
+    if (!dialog) return;
+
+    // Open modal buttons
+    document.querySelectorAll('.open-cert-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        lastFocusedElement = btn; // Save for Focus Return (desktop-a11y-specialist)
+        const id = btn.getAttribute('data-cert-id');
+        const data = CERT_DATA[id];
+        if (!data) return;
+
+        document.getElementById('dialog-title').textContent = data.title;
+        document.getElementById('dialog-issuer').textContent = data.issuer;
+        document.getElementById('dialog-year').textContent = data.year;
+        document.getElementById('dialog-snippet').textContent = data.desc;
+
+        const modUl = document.getElementById('dialog-modules');
+        modUl.innerHTML = data.modules.map(m => `<li>${m}</li>`).join('');
+
+        dialog.showModal();
+        closeBtn1?.focus();
+      });
+    });
+
+    const closeHandler = () => {
+      dialog.close();
+      // Focus Return (DTK-A11Y-007)
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    closeBtn1?.addEventListener('click', closeHandler);
+    closeBtn2?.addEventListener('click', closeHandler);
+
+    // Close on backdrop click
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+      if (!isInDialog) closeHandler();
+    });
+
+    dialog.addEventListener('close', () => {
+      if (lastFocusedElement) lastFocusedElement.focus();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupCertDialog);
+</script>

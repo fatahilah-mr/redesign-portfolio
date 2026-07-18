@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingLang from '../components/FloatingLang.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "Portofolio Fatahilah Miftahul Rahman - Juara 1 LKS IT Network System Administration & AI Prompt Engineering Specialist. Membangun infrastruktur server stabil dan otomatisasi alur kerja AI."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.ico" />
+  <title>{title} | Fatahilah Miftahul Rahman</title>
+
+  <!-- Anti-FOUC Theme & Language Initialization Script -->
+  <script is:inline>
+    (function() {
+      try {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+
+        const lang = localStorage.getItem('lang') || 'id';
+        document.documentElement.setAttribute('lang', lang);
+      } catch (e) {
+        console.warn('LocalStorage error during theme init:', e);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <!-- Accessible Skip Link (DTK-A11Y-001) -->
+  <a href="#main-content" class="skip-to-content sr-only focus:not-sr-only">
+    Skip to main content / Langsung ke konten utama
+  </a>
+
+  <!-- ARIA Live Region for Dynamic Announcements (DTK-A11Y-002) -->
+  <div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Navigation -->
+  <Navbar />
+
+  <!-- Main Content Slot with Programmatic Focus Target -->
+  <main id="main-content" tabindex="-1" class="main-wrapper">
+    <slot />
+  </main>
+
+  <!-- Floating Language Switcher -->
+  <FloatingLang />
+
+  <!-- Footer -->
+  <Footer />
+
+  <style>
+    .skip-to-content:focus {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 9999;
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      outline: 3px solid #FFFFFF !important;
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      outline: none;
+    }
+  </style>
+</body>
+</html>
