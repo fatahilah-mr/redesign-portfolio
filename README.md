@@ -27,6 +27,7 @@ This repository contains the source code for the personal portfolio of Fatahilah
 - 🌐 **Bilingual Support** - Instant language switching (ID/EN) managed via DOM manipulation and `localStorage`, avoiding full-page reloads.
 - 🎨 **Premium Minimalist UI** - Sleek dark/light modes, ghost buttons, tailored color palettes, and responsive typography.
 - 🪄 **Micro-animations** - Tactile feedback on all interactive elements using CSS `transform` and `-webkit-tap-highlight-color` resets for a native app feel.
+- 📈 **Scroll Progress Indicator** - A subtle, glowing gradient scroll progress bar running on highly-optimized vanilla JS.
 
 ## Architecture
 
@@ -64,3 +65,16 @@ The site will be available at `http://localhost:4321`.
 npm run build
 ```
 The compiled static files will be generated in the `dist/` directory.
+
+## Connect with Me 🤝
+
+Interested in discussing a project, collaboration, or just want to say hi? Feel free to reach out!
+
+<div align="left">
+  <a href="https://linkedin.com/in/fatahilah-miftahul-rahman">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="mailto:fatahilah.f10@gmail.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+</div>
