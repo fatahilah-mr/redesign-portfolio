@@ -233,7 +233,8 @@ import Layout from '../layouts/Layout.astro';
           tombolAda: (row.c[6] ? String(row.c[6].v) : '') === 'ada',
           imgDepan: row.c[7] ? String(row.c[7].v) : '',
           imgBelakang: row.c[8] ? String(row.c[8].v) : ''
-        }).filter(cert => cert.imgDepan !== '');
+        };
+      }).filter(cert => cert.imgDepan !== '');
 
       try {
         localStorage.setItem(CACHE_KEY, JSON.stringify(certificatesData));
