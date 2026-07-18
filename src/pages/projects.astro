@@ -299,14 +299,14 @@ import Layout from '../layouts/Layout.astro';
       
       localProjectsData = rows.map((row, index) => {
         return {
-          id: index.toString(),
-          timestamp: row.c[0] ? (row.c[0].f || row.c[0].v) : '',
-          judul: row.c[1] ? row.c[1].v : 'Tanpa Judul',
-          kategori: row.c[2] ? row.c[2].v : 'Umum',
-          link_dokumentasi: row.c[3] ? row.c[3].v : '#',
-          deskripsi: row.c[4] ? row.c[4].v : 'Tidak ada deskripsi.',
-          link_gambar: row.c[5] ? row.c[5].v : '',
-          english_desc: row.c[7] ? row.c[7].v : (row.c[4] ? row.c[4].v : 'Tidak ada deskripsi.')
+          id: row.c[0] ? row.c[0].v : '',
+          timestamp: row.c[1] ? (row.c[1].f || row.c[1].v) : '',
+          judul: row.c[2] ? row.c[2].v : 'Tanpa Judul',
+          kategori: row.c[3] ? row.c[3].v : 'Umum',
+          link_dokumentasi: row.c[4] ? row.c[4].v : '#',
+          deskripsi: row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.',
+          link_gambar: row.c[6] ? row.c[6].v : '',
+          english_desc: row.c[7] ? row.c[7].v : (row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.')
         };
       });
 
