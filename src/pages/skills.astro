@@ -22,7 +22,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <h2 class="skill-cat-title font-heading" data-i18n="skills.cat1.title">Hardware &amp; Cabling</h2>
         </div>
-        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+        <ul class="skill-list text-muted">
           <li class="flex items-start gap-2"><span data-i18n="skills.cat1.li1">PC Assembly &amp; Hardware Troubleshooting</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat1.li2">UTP Cabling (Crimping) &amp; LAN Testing</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat1.li3">Fiber Optic Splicing &amp; Fast Connector Termination</span></li>
@@ -50,7 +50,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <h2 class="skill-cat-title font-heading" data-i18n="skills.cat2.title">Cisco Networking</h2>
         </div>
-        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+        <ul class="skill-list text-muted">
           <li class="flex items-start gap-2"><span data-i18n="skills.cat2.li1">Konfigurasi Dasar &amp; Keamanan Device</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat2.li2">Infrastruktur Switching, VLAN &amp; Trunking</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat2.li3">Implementasi STP Portfast &amp; EtherChannel</span></li>
@@ -77,7 +77,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <h2 class="skill-cat-title font-heading" data-i18n="skills.cat3.title">Mikrotik &amp; Wireless</h2>
         </div>
-        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+        <ul class="skill-list text-muted">
           <li class="flex items-start gap-2"><span data-i18n="skills.cat3.li1">Konfigurasi Dasar, Pengalamatan IP &amp; Internet Gateway (Identity, IPv4, DHCP Client/Server, DNS, SNTP)</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat3.li2">Manajemen Pengguna &amp; Hak Akses Perangkat (User Privilege, Password Hardening, Custom Service Ports)</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat3.li3">Keamanan Jaringan &amp; Firewall (NAT Masquerade, Content &amp; Media Blocking, Port Forwarding)</span></li>
@@ -106,7 +106,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <h2 class="skill-cat-title font-heading" data-i18n="skills.cat4.title">Server &amp; OS Administration</h2>
         </div>
-        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+        <ul class="skill-list text-muted">
           <li class="flex items-start gap-2"><span data-i18n="skills.cat4.li1">Linux Server (Debian 12 &amp; 13): Network Config (IP, Gateway, DNS, Resolvconf, Timezone) &amp; SSH Server</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat4.li2">Linux Services (Debian 12 &amp; 13): DNS Server (Bind9) &amp; Web Server (Nginx, Apache2, Virtual Host)</span></li>
           <li class="flex items-start gap-2"><span data-i18n="skills.cat4.li3">Network Optimization &amp; Security: DHCP Server, Nftables Firewall, &amp; VRRP Redundancy</span></li>
@@ -202,6 +202,23 @@ import Layout from '../layouts/Layout.astro';
     min-height: 64px;
     margin-top: 4px;
     margin-bottom: 16px;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .skill-list li::before {
+    content: '✓';
+    color: var(--color-primary);
+    font-weight: 800;
+    font-size: 1.1em;
+    flex-shrink: 0;
   }
 
   .tags-cluster {
