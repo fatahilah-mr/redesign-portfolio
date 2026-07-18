@@ -187,10 +187,10 @@ import { ui } from '../i18n/ui';
   }
 
   /* Theme icon swapping */
-  [data-theme="dark"] .icon-moon { display: none; }
-  [data-theme="dark"] .icon-sun { display: block; }
-  [data-theme="light"] .icon-sun { display: none; }
-  [data-theme="light"] .icon-moon { display: block; }
+  :global([data-theme="dark"]) .icon-sun { display: none; }
+  :global([data-theme="dark"]) .icon-moon { display: block; }
+  :global([data-theme="light"]) .icon-moon { display: none; }
+  :global([data-theme="light"]) .icon-sun { display: block; }
 
   .hidden {
     display: none !important;
