@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Tentang" description="Profil tentang Fatahilah Miftahul Rahman, lulusan SMK Patriot Pituruh jurusan TKJ (2026), Juara 1 LKS IT Network System Administration, serta praktisi AI Prompt Engineering.">
   <section class="about-section container section-py">
+    <!-- Section Header -->
     <div class="section-header">
       <div class="section-badge">
         <span class="badge font-mono" data-i18n="nav.about">Tentang</span>
@@ -14,32 +15,32 @@ import Layout from '../layouts/Layout.astro';
       </p>
     </div>
 
-    <!-- Hero Profile Section (Sesuai source di ~/storage/shared/portofolio/index.html) -->
-    <div class="hero-profile-card glass-card mb-12 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
-      <div class="hero-profile-info flex flex-col items-center md:items-start text-center md:text-left gap-3">
-        <span class="badge badge-primary font-mono text-xs" data-i18n="about.profile.badge">IT Network & System Administration</span>
-        <h2 class="font-heading text-3xl md:text-4xl text-foreground mt-1">Fatahilah Miftahul Rahman</h2>
-        <p class="text-muted text-base md:text-lg max-w-xl leading-relaxed" data-i18n="about.profile.desc">
+    <!-- Hero Profile Section -->
+    <div class="hero-profile-card glass-card">
+      <div class="hero-profile-info">
+        <span class="badge badge-primary font-mono" data-i18n="about.profile.badge">IT Network & System Administration</span>
+        <h2 class="hero-name font-heading">Fatahilah Miftahul Rahman</h2>
+        <p class="hero-desc" data-i18n="about.profile.desc">
           Connecting the future, one network at a time. Spesialis infrastruktur jaringan, konfigurasi server Linux/Windows, serta otomatisasi berbasis AI Prompt Engineering.
         </p>
-        <div class="status-indicator mt-2 flex items-center gap-2 bg-surface px-4 py-2 rounded-full border border-border">
+        <div class="status-indicator">
           <span class="status-dot"></span>
-          <span class="font-mono text-xs text-foreground" data-i18n="about.profile.status">Siap Kerja & Berkembang di Industri IT (Lulusan 2026)</span>
+          <span class="status-text font-mono" data-i18n="about.profile.status">Siap Kerja & Berkembang di Industri IT (Lulusan 2026)</span>
         </div>
       </div>
-      <div class="hero-profile-photo flex-shrink-0">
+      <div class="hero-profile-photo">
         <div class="avatar-ring">
           <img src="/assets/profile.webp" alt="Foto Profil Fatahilah Miftahul Rahman" width="160" height="160" class="avatar-img" fetchpriority="high" />
         </div>
       </div>
     </div>
 
-    <!-- Main About Grid (Exact Source from ~/storage/shared/portofolio/index.html) -->
+    <!-- Main About Grid -->
     <div class="about-grid">
       <!-- Left Column: Biography -->
       <div class="about-bio glass-card">
-        <h2 class="font-heading text-2xl mb-6" data-i18n="about.bio.heading">Latar Belakang & Visi Teknologi</h2>
-        <div class="bio-content leading-relaxed text-muted space-y-5">
+        <h2 class="bio-heading font-heading" data-i18n="about.bio.heading">Latar Belakang & Visi Teknologi</h2>
+        <div class="bio-content">
           <p data-i18n="about.bio.p1">
             Saya lulusan SMK Patriot Pituruh jurusan Teknik Komputer dan Jaringan (2026) dengan spesialisasi di bidang IT Network & System Administration. Prestasi terbaik saya adalah meraih Juara 1 pada Lomba Kompetensi Siswa (LKS) SMK tingkat Kabupaten Purworejo di bidang IT Network System Administration.
           </p>
@@ -48,59 +49,59 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
 
-        <div class="bio-actions mt-8 pt-6 border-t border-border flex flex-wrap gap-4">
+        <div class="bio-actions">
           <a href="/experience" class="btn-primary" data-i18n="about.bio.btn.exp">Lihat Pengalaman PKL →</a>
           <a href="/skills" class="btn-secondary" data-i18n="about.bio.btn.skills">Daftar Keahlian Teknis →</a>
         </div>
       </div>
 
       <!-- Right Column: Meta Info & Achievement Cards -->
-      <div class="about-meta flex flex-col gap-6">
+      <div class="about-meta">
         <!-- Pendidikan Card -->
         <div class="meta-card glass-card">
           <div class="meta-icon font-mono" data-i18n="about.meta.edu.label">🎓 Pendidikan</div>
-          <h3 class="meta-title font-heading mt-2 mb-1">SMK Patriot Pituruh</h3>
-          <p class="meta-val font-mono text-muted" data-i18n="about.meta.edu.val">Teknik Komputer dan Jaringan (TKJ)</p>
+          <h3 class="meta-title font-heading">SMK Patriot Pituruh</h3>
+          <p class="meta-val font-mono" data-i18n="about.meta.edu.val">Teknik Komputer dan Jaringan (TKJ)</p>
         </div>
 
         <!-- Tahun Lulus Card -->
         <div class="meta-card glass-card">
           <div class="meta-icon font-mono" data-i18n="about.meta.year.label">📅 Tahun Lulus</div>
-          <h3 class="meta-title font-heading mt-2 mb-1">2026</h3>
-          <p class="meta-val font-mono text-muted" data-i18n="about.meta.year.val">Siap Kerja &amp; Berkembang di Industri IT</p>
+          <h3 class="meta-title font-heading">2026</h3>
+          <p class="meta-val font-mono" data-i18n="about.meta.year.val">Siap Kerja &amp; Berkembang di Industri IT</p>
         </div>
 
         <!-- Prestasi LKS Featured Card -->
         <div class="achievement-card glass-card">
-          <div class="achievement-badge font-mono badge badge-gold mb-3" data-i18n="about.meta.achieve.label">🏆 Prestasi</div>
-          <h3 class="achievement-title font-heading mb-2" data-i18n="about.meta.achieve.title">Lomba Kompetensi Siswa (LKS) SMK</h3>
-          <div class="achievement-val font-mono text-accent text-lg font-bold mb-2" data-i18n="about.meta.achieve.val">Juara I</div>
-          <p class="meta-val font-mono text-muted leading-snug" data-i18n="about.meta.achieve.desc" data-i18n-html="true">IT Network System Administration<br>Tingkat Kabupaten Purworejo, 2026</p>
+          <div class="achievement-badge font-mono badge badge-gold" data-i18n="about.meta.achieve.label">🏆 Prestasi</div>
+          <h3 class="achievement-title font-heading" data-i18n="about.meta.achieve.title">Lomba Kompetensi Siswa (LKS) SMK</h3>
+          <div class="achievement-val font-mono" data-i18n="about.meta.achieve.val">Juara I</div>
+          <p class="achievement-desc font-mono" data-i18n="about.meta.achieve.desc" data-i18n-html="true">IT Network System Administration<br>Tingkat Kabupaten Purworejo, 2026</p>
         </div>
       </div>
     </div>
 
     <!-- Core Philosophy / Focus Areas -->
-    <div class="focus-areas mt-16 pt-6">
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <h2 class="font-heading text-2xl mb-3" data-i18n="about.focus.heading">Fokus & Kompetensi Utama</h2>
-        <p class="text-muted text-sm leading-relaxed" data-i18n="about.focus.subtitle">Tiga pilar utama yang menjadi pondasi keahlian teknis saya dalam menyelesaikan tantangan IT modern.</p>
+    <div class="focus-areas">
+      <div class="focus-header">
+        <h2 class="font-heading focus-main-title" data-i18n="about.focus.heading">Fokus & Kompetensi Utama</h2>
+        <p class="focus-subtitle" data-i18n="about.focus.subtitle">Tiga pilar utama yang menjadi pondasi keahlian teknis saya dalam menyelesaikan tantangan IT modern.</p>
       </div>
       <div class="focus-grid">
         <div class="focus-item glass-card">
           <span class="focus-num font-mono">01</span>
-          <h3 class="font-heading text-xl mt-3 mb-2" data-i18n="about.focus.item1.title">Network Infrastructure</h3>
-          <p class="text-muted text-sm leading-relaxed mt-2" data-i18n="about.focus.item1.desc">Perancangan dan pengamanan topologi jaringan LAN, WLAN, VLAN, routing, serta konfigurasi RouterBoard MikroTik & Cisco.</p>
+          <h3 class="focus-title font-heading" data-i18n="about.focus.item1.title">Network Infrastructure</h3>
+          <p class="focus-desc" data-i18n="about.focus.item1.desc">Perancangan dan pengamanan topologi jaringan LAN, WLAN, VLAN, routing, serta konfigurasi RouterBoard MikroTik & Cisco.</p>
         </div>
         <div class="focus-item glass-card">
           <span class="focus-num font-mono">02</span>
-          <h3 class="font-heading text-xl mt-3 mb-2" data-i18n="about.focus.item2.title">Server Administration</h3>
-          <p class="text-muted text-sm leading-relaxed mt-2" data-i18n="about.focus.item2.desc">Instalasi & optimalisasi Linux Debian Server (DNS, Web Server Nginx/Apache, DHCP, Nftables Firewall, dan High Availability HAProxy).</p>
+          <h3 class="focus-title font-heading" data-i18n="about.focus.item2.title">Server Administration</h3>
+          <p class="focus-desc" data-i18n="about.focus.item2.desc">Instalasi & optimalisasi Linux Debian Server (DNS, Web Server Nginx/Apache, DHCP, Nftables Firewall, dan High Availability HAProxy).</p>
         </div>
         <div class="focus-item glass-card">
           <span class="focus-num font-mono">03</span>
-          <h3 class="font-heading text-xl mt-3 mb-2" data-i18n="about.focus.item3.title">AI Prompt Engineering</h3>
-          <p class="text-muted text-sm leading-relaxed mt-2" data-i18n="about.focus.item3.desc">Pemanfaatan Large Language Models (LLM) untuk pembuatan otomatisasi skrip administrasi jaringan dan percepatan analisis troubleshooting.</p>
+          <h3 class="focus-title font-heading" data-i18n="about.focus.item3.title">AI Prompt Engineering</h3>
+          <p class="focus-desc" data-i18n="about.focus.item3.desc">Pemanfaatan Large Language Models (LLM) untuk pembuatan otomatisasi skrip administrasi jaringan dan percepatan analisis troubleshooting.</p>
         </div>
       </div>
     </div>
@@ -108,26 +109,101 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .section-header { text-align: center; max-width: 800px; margin: 0 auto 48px; }
-  .section-badge { margin-bottom: 16px; }
-  .section-subtitle { font-size: 1.1rem; margin-top: 16px; margin-bottom: 16px; }
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 48px;
+  }
+  .section-badge {
+    margin-bottom: 16px;
+  }
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    margin-top: 16px;
+  }
 
   /* Hero Profile Card */
   .hero-profile-card {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(59, 130, 246, 0.05) 100%);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(59, 130, 246, 0.06) 100%);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
+    padding: 40px 48px;
+    margin-bottom: 56px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .hero-profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .hero-name {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    color: var(--color-foreground);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .hero-desc {
+    color: var(--color-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-surface);
+    padding: 10px 18px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+    margin-top: 6px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #22c55e;
+    box-shadow: 0 0 10px #22c55e;
+    flex-shrink: 0;
+  }
+
+  .status-text {
+    font-size: 0.8125rem;
+    color: var(--color-foreground);
+    line-height: 1.4;
+  }
+
+  .hero-profile-photo {
+    flex-shrink: 0;
   }
 
   .avatar-ring {
-    width: 160px;
-    height: 160px;
+    width: 168px;
+    height: 168px;
     border-radius: 50%;
     padding: 6px;
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.35);
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .avatar-img {
@@ -138,54 +214,70 @@ import Layout from '../layouts/Layout.astro';
     background: var(--bg-surface);
   }
 
-  .status-indicator {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #22c55e;
-    box-shadow: 0 0 10px #22c55e;
-  }
-
-  /* About Grid */
+  /* Main About Grid */
   .about-grid {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: 32px;
-    align-items: start;
+    align-items: stretch;
+    margin-bottom: 64px;
   }
 
   .about-bio {
-    padding: 36px;
+    padding: 40px;
     border-radius: 24px;
     background: var(--bg-card);
     border: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .bio-heading {
+    font-size: 1.75rem;
+    color: var(--color-foreground);
+    margin-bottom: 24px;
   }
 
   .bio-content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
+    flex: 1;
   }
 
   .bio-content p {
     font-size: 1.05rem;
     line-height: 1.75;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .bio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Meta & Achievement Column */
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
   }
 
   .meta-card,
   .achievement-card {
-    padding: 26px 28px;
+    padding: 24px 28px;
     border-radius: 20px;
     background: var(--bg-card);
     border: 1px solid var(--color-border);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
   }
@@ -194,18 +286,16 @@ import Layout from '../layouts/Layout.astro';
   .achievement-card:hover {
     transform: translateY(-4px);
     border-color: var(--color-primary);
-  }
-
-  .achievement-card {
-    border: 1px solid var(--color-accent);
-    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 179, 0, 0.05) 100%);
+    box-shadow: var(--shadow-md);
   }
 
   .meta-icon {
-    font-size: 0.85rem;
+    font-size: 0.8125rem;
     color: var(--color-primary);
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    font-weight: 600;
+    margin-bottom: 8px;
   }
 
   .meta-title,
@@ -213,22 +303,73 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.35rem;
     color: var(--color-foreground);
     line-height: 1.3;
+    margin: 0 0 4px 0;
   }
 
   .meta-val {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
     line-height: 1.5;
+    margin: 0;
   }
 
-  /* Focus areas */
+  .achievement-card {
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(245, 158, 11, 0.06) 100%);
+  }
+
+  .achievement-badge {
+    align-self: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .achievement-val {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin: 4px 0 8px 0;
+  }
+
+  .achievement-desc {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Focus Areas */
+  .focus-areas {
+    margin-top: 64px;
+    padding-top: 24px;
+  }
+
+  .focus-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 40px;
+  }
+
+  .focus-main-title {
+    font-size: 2rem;
+    color: var(--color-foreground);
+    margin-bottom: 12px;
+  }
+
+  .focus-subtitle {
+    font-size: 1rem;
+    color: var(--color-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
   .focus-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
 
   .focus-item {
-    padding: 28px;
+    padding: 32px 28px;
     border-radius: 20px;
     background: var(--bg-card);
     border: 1px solid var(--color-border);
@@ -236,6 +377,13 @@ import Layout from '../layouts/Layout.astro';
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .focus-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
   }
 
   .focus-num {
@@ -247,10 +395,61 @@ import Layout from '../layouts/Layout.astro';
     padding: 4px 10px;
     border-radius: 6px;
     font-weight: 700;
+    border: 1px solid var(--color-border);
+    margin-bottom: 16px;
   }
 
-  @media (max-width: 900px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .about-bio { padding: 28px; }
+  .focus-title {
+    font-size: 1.25rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin: 0 0 10px 0;
+  }
+
+  .focus-desc {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Responsive Design Scale (`refactoring-ui` breakpoints) */
+  @media (max-width: 992px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .focus-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-profile-card {
+      flex-direction: column-reverse;
+      text-align: center;
+      padding: 32px 24px;
+      gap: 28px;
+    }
+    .hero-profile-info {
+      align-items: center;
+    }
+    .about-bio {
+      padding: 28px 24px;
+    }
+    .bio-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    .bio-actions .btn-primary,
+    .bio-actions .btn-secondary {
+      width: 100%;
+    }
+    .focus-grid {
+      grid-template-columns: 1fr;
+    }
+    .focus-item {
+      padding: 26px 22px;
+    }
   }
 </style>
