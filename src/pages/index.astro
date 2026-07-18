@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Beranda" description="Portofolio Fatahilah Miftahul Rahman - Juara 1 LKS IT Network System Administration & AI Prompt Engineering Specialist">
-  <!-- Hero Section (Mengikuti acuan_dari_web_portofolio/index.html #home) -->
+  <!-- Hero Section (Tanpa Foto Profil, Khusus di About) -->
   <section class="hero-section container section-py">
-    <div class="hero-inner flex flex-col md:flex-row items-center justify-between gap-12 w-full max-w-5xl mx-auto">
-      <div class="hero-text flex flex-col items-center md:items-start text-center md:text-left flex-grow">
+    <div class="hero-inner flex flex-col items-center justify-center text-center w-full max-w-4xl mx-auto">
+      <div class="hero-text flex flex-col items-center text-center w-full">
         <!-- Eyebrow -->
         <div class="badge-wrapper mb-4 animate-fade-in">
           <span class="badge badge-primary font-mono text-sm uppercase tracking-wider px-4 py-1.5" data-i18n="hero.eyebrow">
@@ -20,12 +20,12 @@ import Layout from '../layouts/Layout.astro';
         </h1>
 
         <!-- Subtitle / Tagline -->
-        <p class="hero-tagline text-muted text-lg sm:text-xl font-light mb-8 max-w-xl animate-slide-up-delay" data-i18n="hero.subtitle">
+        <p class="hero-tagline text-muted text-lg sm:text-xl font-light mb-8 max-w-xl mx-auto animate-slide-up-delay" data-i18n="hero.subtitle">
           Connecting the future, one network at a time.
         </p>
 
         <!-- CTA Buttons -->
-        <div class="hero-actions flex flex-wrap items-center justify-center md:justify-start gap-4 mb-10 animate-slide-up-delay-2">
+        <div class="hero-actions flex flex-wrap items-center justify-center gap-4 mb-10 animate-slide-up-delay-2">
           <a href="/projects" class="btn-primary" data-i18n="hero.cta.primary">
             Lihat Portofolio →
           </a>
@@ -35,7 +35,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <!-- Quick Stats Showcase -->
-        <div class="hero-stats grid grid-cols-3 gap-4 w-full max-w-lg animate-fade-in-late">
+        <div class="hero-stats grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl mx-auto animate-fade-in-late">
           <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
             <span class="stat-number font-heading text-2xl block text-foreground">99.9%</span>
             <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.uptime">Target Uptime</span>
