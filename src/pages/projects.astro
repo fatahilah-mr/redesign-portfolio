@@ -128,12 +128,19 @@ import Layout from '../layouts/Layout.astro';
 
   window.addEventListener('languagechange', (e) => {
     renderCacheStatusText();
-    // Swap bilingual descriptions on project cards
+    // Swap bilingual descriptions and titles on project cards
     const lang = e.detail?.lang || localStorage.getItem('lang') || 'id';
+    
     document.querySelectorAll('.project-card .dynamic-desc').forEach(el => {
       const idDesc = el.getAttribute('data-id-desc');
       const enDesc = el.getAttribute('data-en-desc');
       el.textContent = lang === 'en' ? enDesc : idDesc;
+    });
+
+    document.querySelectorAll('.project-card .dynamic-title').forEach(el => {
+      const idTitle = el.getAttribute('data-id-title');
+      const enTitle = el.getAttribute('data-en-title');
+      el.textContent = lang === 'en' ? enTitle : idTitle;
     });
   });
 
@@ -212,6 +219,7 @@ import Layout from '../layouts/Layout.astro';
       const badgeClass = getBadgeClass(project.kategori);
       
       const judulEscaped = escapeHtml(project.judul);
+      const judulEnEscaped = escapeHtml(project.english_title || project.judul);
       const deskripsiEscaped = escapeHtml(project.deskripsi);
       const deskripsiEnEscaped = escapeHtml(project.english_desc);
       const kategoriEscaped = escapeHtml(project.kategori);
@@ -219,6 +227,7 @@ import Layout from '../layouts/Layout.astro';
       
       const currentLang = localStorage.getItem('lang') || 'id';
       const initialDesc = currentLang === 'en' ? deskripsiEnEscaped : deskripsiEscaped;
+      const initialTitle = currentLang === 'en' ? judulEnEscaped : judulEscaped;
 
       card.innerHTML = `
         <div class="project-img-wrap">
@@ -227,7 +236,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="project-info">
           <div>
             <span class="project-badge ${badgeClass}">${kategoriEscaped}</span>
-            <h3 class="project-title font-heading">${judulEscaped}</h3>
+            <h3 class="project-title font-heading dynamic-title" data-id-title="${judulEscaped}" data-en-title="${judulEnEscaped}">${initialTitle}</h3>
             <p class="project-desc text-muted dynamic-desc" data-id-desc="${deskripsiEscaped}" data-en-desc="${deskripsiEnEscaped}">${initialDesc}</p>
           </div>
           <div class="project-actions mt-auto pt-4 border-t border-border flex justify-between items-center gap-3">
@@ -306,7 +315,8 @@ import Layout from '../layouts/Layout.astro';
           link_dokumentasi: row.c[4] ? row.c[4].v : '#',
           deskripsi: row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.',
           link_gambar: row.c[6] ? row.c[6].v : '',
-          english_desc: row.c[7] ? row.c[7].v : (row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.')
+          english_desc: row.c[7] ? row.c[7].v : (row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.'),
+          english_title: row.c[8] ? row.c[8].v : (row.c[2] ? row.c[2].v : 'Untitled')
         };
       });
 
