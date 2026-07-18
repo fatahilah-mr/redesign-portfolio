@@ -1,6 +1,6 @@
 <!-- prettier-ignore -->
 <div align="center">
-  <img src="public/assets/favicon/favicon.ico" width="96" alt="Fatahilah M.R Logo">
+  <img src="public/assets/favicon/favicon.svg" width="96" alt="Fatahilah M.R Logo">
   
   # Fatahilah M.R Portfolio
   *A high-performance, minimalist personal portfolio powered by a Google Sheets CMS*
