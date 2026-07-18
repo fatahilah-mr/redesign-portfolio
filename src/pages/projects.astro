@@ -339,9 +339,27 @@ import Layout from '../layouts/Layout.astro';
   .btn-refresh.loading .refresh-icon { animation: spin 1s linear infinite; }
   @keyframes spin { 100% { transform: rotate(360deg); } }
 
+  .cms-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
   /* ==========================================
-     FILTER TOMBOL (Sesuai backup-style.css)
+     FILTER TOMBOL WRAPPER & TOMBOL KATEGORI
      ========================================== */
+  .cert-buttons-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+    margin-bottom: 3.5rem !important; /* Jarak luas dan jelas antara tombol filter kategori dengan content box / display box di bawahnya */
+  }
+
   .cert-btn {
     display: inline-flex;
     align-items: center;
