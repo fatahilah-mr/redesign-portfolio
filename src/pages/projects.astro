@@ -2,387 +2,379 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Proyek & Lab" description="Arsip Proyek Infrastruktur Jaringan, Server, dan Eksperimen AI Prompt Fatahilah">
+<Layout title="Projects & Lab Archive" description="Portofolio proyek IT Network & System Administration oleh Fatahilah Miftahul Rahman, termasuk rancang bangun jaringan Cisco Packet Tracer dan setup MikroTik Gateway.">
   <section class="projects-section container section-py">
     <div class="section-header">
       <div class="section-badge">
         <span class="badge font-mono" data-i18n="nav.projects">Proyek & Lab</span>
       </div>
-      <h1 class="font-heading" data-i18n="projects.title">Arsip Proyek & Eksperimen Laboratorium</h1>
+      <h1 class="font-heading" data-i18n="proj.title">Portofolio Proyek & Lab Archive</h1>
       <p class="section-subtitle">
-        Kumpulan implementasi nyata di bidang administrasi sistem jaringan, topologi Cisco/Mikrotik, dan otomatisasi berbasis AI.
+        Implementasi rancang bangun topologi jaringan, pengamanan sistem server, dan eksperimen lab di lingkungan Cisco Packet Tracer, MikroTik, dan Linux Server.
       </p>
     </div>
 
-    <!-- Filter Pills -->
-    <div class="filter-controls" role="tablist" aria-label="Filter Kategori Proyek">
-      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" data-i18n="projects.filter.all">Semua Proyek</button>
-      <button class="filter-btn" data-filter="Network Infrastructure" role="tab" aria-selected="false" data-i18n="projects.filter.net">Infrastruktur Jaringan</button>
-      <button class="filter-btn" data-filter="Server Administration" role="tab" aria-selected="false" data-i18n="projects.filter.sys">Administrasi Server</button>
-      <button class="filter-btn" data-filter="AI Prompt Engineering" role="tab" aria-selected="false" data-i18n="projects.filter.ai">Eksperimen AI Prompt</button>
-      <button class="filter-btn" data-filter="Web & CMS" role="tab" aria-selected="false" data-i18n="projects.filter.web">Web & CMS</button>
+    <!-- CMS Status Bar -->
+    <div class="cms-status-bar font-mono text-sm" id="proj-cms-status" aria-live="polite">
+      <span class="spinner"></span> <span>Memeriksa pembaruan proyek dari Google Sheets CMS...</span>
     </div>
 
-    <!-- Status & Cache Notice (ARIA Live) -->
-    <div class="cms-status-bar font-mono text-sm" id="cms-status" aria-live="polite">
-      <span class="spinner"></span> <span data-i18n="projects.loading">Memuat data proyek...</span>
+    <!-- Projects Grid (Static verified from ~/storage/shared/portofolio + Dynamic Sheets) -->
+    <div class="projects-grid" id="projects-grid-container" aria-label="Daftar Proyek">
+      <!-- Populated by client script with verified fallback & cached CMS -->
     </div>
 
-    <!-- Projects Grid -->
-    <div class="projects-grid" id="projects-grid" aria-label="Daftar Proyek">
-      <!-- Static fallback / initial cards populated immediately via script -->
+    <!-- Action Buttons -->
+    <div class="projects-footer-actions">
+      <a href="https://github.com/fatahilah-mr" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        Kunjungi Repositori GitHub
+      </a>
+      <button class="btn-secondary" id="refresh-proj-btn" title="Segarkan Cache Proyek CMS">
+        ↻ Segarkan Data Proyek
+      </button>
     </div>
   </section>
 
-  <!-- Project Detail Accessible Modal (Dialog with Focus Trap) -->
-  <dialog id="project-modal" class="project-modal glass-card" aria-labelledby="modal-title" aria-describedby="modal-desc">
+  <!-- Project Detail Accessible Dialog -->
+  <dialog id="project-modal" class="project-modal glass-card" aria-labelledby="proj-modal-title">
     <div class="modal-header">
-      <span class="badge font-mono" id="modal-category">Kategori</span>
-      <button class="close-modal-btn" id="close-modal" aria-label="Tutup Detail Proyek">✕</button>
+      <span class="badge badge-primary font-mono">📁 Detail Proyek IT Network</span>
+      <button class="close-modal-btn" id="close-proj-modal" aria-label="Tutup Detail Proyek">✕</button>
     </div>
     <div class="modal-body">
-      <h2 id="modal-title" class="font-heading text-2xl">Judul Proyek</h2>
-      <p id="modal-desc" class="modal-description">Deskripsi proyek lengkap...</p>
-      
-      <div class="modal-meta font-mono">
-        <div><strong>Tech Stack:</strong> <span id="modal-tech"></span></div>
-        <div><strong>Status:</strong> <span id="modal-status" class="text-accent"></span></div>
+      <div class="modal-img-wrap mb-6">
+        <img id="proj-modal-img" src="" alt="Topologi Proyek" loading="lazy" class="proj-detail-img" />
       </div>
-
-      <div class="modal-actions">
-        <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
-          Lihat Dokumentasi / Topologi →
-        </a>
-        <button id="modal-share" class="btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-          Bagikan Proyek
-        </button>
+      <h2 id="proj-modal-title" class="font-heading text-2xl mb-3">Judul Proyek</h2>
+      <p id="proj-modal-desc" class="text-muted leading-relaxed mb-6">Deskripsi lengkap proyek.</p>
+      <div class="modal-footer flex justify-end gap-3">
+        <button id="close-proj-modal-btn" class="btn-secondary">Tutup (Escape / Enter)</button>
       </div>
     </div>
   </dialog>
 </Layout>
 
 <style>
-  .section-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 40px;
-  }
-
+  .section-header { text-align: center; max-width: 800px; margin: 0 auto 36px; }
   .section-badge { margin-bottom: 16px; }
   .section-subtitle { font-size: 1.1rem; margin-top: 12px; }
-
-  .filter-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-
-  .filter-btn {
-    padding: 10px 22px;
-    border-radius: 9999px;
-    background: var(--bg-card);
-    border: 1px solid var(--color-border);
-    color: var(--color-muted);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-btn:hover,
-  .filter-btn.active {
-    background: var(--color-primary);
-    color: #FFFFFF;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 15px var(--color-primary-glow);
-  }
 
   .cms-status-bar {
     text-align: center;
     color: var(--color-muted);
-    margin-bottom: 32px;
+    margin-bottom: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--bg-surface);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 36px;
+    margin-bottom: 56px;
   }
 
-  /* Modal Styles */
+  .project-card {
+    border-radius: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-surface);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .project-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover .project-img-wrap img {
+    transform: scale(1.05);
+  }
+
+  .project-info {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-grow: 1;
+  }
+
+  .project-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    line-height: 1.35;
+    color: var(--color-foreground);
+  }
+
+  .project-desc {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .projects-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  /* Modal */
   .project-modal {
     margin: auto;
-    padding: 36px;
-    max-width: 680px;
-    width: 90%;
-    border-radius: 20px;
+    padding: 32px;
+    max-width: 800px;
+    width: 92%;
+    border-radius: 22px;
     background: var(--bg-card);
     color: var(--color-foreground);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-lg);
-    z-index: 2000;
+    z-index: 3000;
   }
 
   .project-modal::backdrop {
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
   }
 
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .close-modal-btn {
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--color-muted);
-    cursor: pointer;
-    padding: 4px;
-  }
-
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .close-modal-btn { background: none; border: none; font-size: 1.5rem; color: var(--color-muted); cursor: pointer; }
   .close-modal-btn:hover { color: var(--color-foreground); }
-  .modal-description { font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px; }
-  .modal-meta { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-surface); border-radius: 12px; margin-bottom: 24px; font-size: 0.9rem; }
-  .modal-actions { display: flex; flex-wrap: wrap; gap: 16px; }
 
-  @media (max-width: 640px) {
+  .modal-img-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-surface);
+    border: 1px solid var(--color-border);
+    max-height: 480px;
+  }
+
+  .proj-detail-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
     .projects-grid { grid-template-columns: 1fr; }
-    .project-modal { padding: 24px; }
+    .project-modal { padding: 20px; }
   }
 </style>
 
 <script is:inline>
-  // Initial fallback project dataset (verified online & offline)
-  const FALLBACK_PROJECTS = [
+  // ==================================================
+  // GOOGLE SHEETS CMS FOR PROJECTS & EXACT SOURCE VERIFIED
+  // ==================================================
+  const PROJ_SPREADSHEET_ID = '1GtKyr8LGv5AfSChzfP7t6_4D0rBUoC8VeRdC_Rw6eqY';
+  const PROJ_SHEET_NAME = 'Sheet2'; // Sheet untuk projects jika ada
+  const PROJ_DATA_URL = `https://docs.google.com/spreadsheets/d/${PROJ_SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${PROJ_SHEET_NAME}`;
+
+  const PROJ_CACHE_KEY = 'fatahilah_projects_cache_v2';
+  const PROJ_CACHE_TIME_KEY = 'fatahilah_projects_cache_time_v2';
+  const PROJ_CACHE_DURATION = 3600000; // 1 Jam dalam milidetik
+
+  let lastProjFocused = null;
+
+  // Exact verified projects from ~/storage/shared/portofolio/index.html
+  const EXACT_PROJECTS = [
     {
-      id: "net-1",
-      title: "Enterprise VLAN & Redundant Routing Topology",
-      category: "Network Infrastructure",
-      desc: "Perancangan topologi jaringan berskala enterprise menggunakan router Cisco dan switch multilayer. Dilengkapi konfigurasi VLAN trunking, Inter-VLAN routing, serta OSPF failover dengan target uptime 99.9%.",
-      tech: "Cisco Packet Tracer, OSPF, VLAN Trunking, ACL",
-      status: "Production Ready / Tested",
-      url: "/assets/Topologi-Cisco-PT-01.webp"
+      id: "1",
+      title: "Rancang Bangun Jaringan Kantor 3 Lantai",
+      desc: "Mendesain infrastruktur jaringan kantor 3 lantai menggunakan Cisco Packet Tracer. Proyek ini menerapkan segmentasi VLAN terpisah untuk setiap lantai, manajemen alokasi IP otomatis via DHCP Server, integrasi lokal DNS Server, serta konfigurasi satu router management khusus untuk kendali penuh administrator.",
+      image: "/assets/Topologi-Cisco-PT-01.webp",
+      tags: ["Cisco Packet Tracer", "VLAN", "DHCP Server", "Network Architecture"]
     },
     {
-      id: "sys-1",
-      title: "Mikrotik Firewall Mangle & Bandwidth Management QoS",
-      category: "Server Administration",
-      desc: "Implementasi manajemen bandwidth tingkat lanjut (Hierarchical Token Bucket / HTB) dan pemisahan trafik game/browsing menggunakan Firewall Mangle pada Mikrotik RouterOS untuk kestabilan jaringan laboratorium.",
-      tech: "Mikrotik RouterOS, Firewall Mangle, Queue Tree, QoS",
-      status: "Active Deployment",
-      url: "/assets/Mikrotik-01.webp"
-    },
-    {
-      id: "ai-1",
-      title: "AI-Assisted Automated Network Diagnostics Script",
-      category: "AI Prompt Engineering",
-      desc: "Eksperimen alur kerja AI Prompt Engineering (Chain-of-Thought) yang menghasilkan skrip Bash & Python untuk mendiagnosis anomali latensi, konektivitas BGP, dan kegagalan interface server secara otomatis.",
-      tech: "LLM Prompt Design, Bash, Python, Automated Logging",
-      status: "Lab Prototype / Verified",
-      url: "#"
-    },
-    {
-      id: "web-1",
-      title: "High-Performance Portfolio & Google Sheets Headless CMS",
-      category: "Web & CMS",
-      desc: "Pengembangan web portofolio profesional menggunakan Astro MPA v5 dan Vanilla CSS. Terintegrasi langsung dengan Google Sheets sebagai Headless CMS yang ringan, cepat, dan dilengkapi caching lokal 1 jam.",
-      tech: "Astro v5, Vanilla CSS, Google Sheets API, LocalStorage Cache",
-      status: "Live Production",
-      url: "https://fatahmr.my.id"
+      id: "2",
+      title: "Setup Gateway & Keamanan Jaringan MikroTik",
+      desc: "Membangun jaringan gateway fungsional pada RouterBoard MikroTik lewat Winbox. Konfigurasi mencakup setup IPv4 address, aktivasi dan manajemen WLAN interface untuk akses wireless, implementasi Firewall NAT agar jaringan lokal terhubung ke internet, konfigurasi DNS dan DHCP Server, serta pengujian stabilitas koneksi via terminal.",
+      image: "/assets/Mikrotik-01.webp",
+      tags: ["MikroTik RouterBoard", "Winbox", "NAT Firewall", "WLAN Gateway"]
     }
   ];
 
-  let currentProjects = [...FALLBACK_PROJECTS];
-
-  // Render cards to grid
-  function renderProjects(projects) {
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
-
-    if (projects.length === 0) {
-      grid.innerHTML = `<div class="empty-state font-mono" style="grid-column: 1/-1; text-align: center; padding: 48px;">Tidak ada proyek pada kategori ini.</div>`;
-      return;
-    }
-
-    grid.innerHTML = projects.map(p => `
-      <div class="project-card glass-card" style="padding: 28px; display: flex; flex-direction: column; gap: 16px;" data-id="${p.id}">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-          <span class="badge font-mono" style="font-size: 0.75rem;">${p.category}</span>
-          <span class="status-badge font-mono" style="font-size: 0.75rem; color: var(--color-accent);">${p.status}</span>
-        </div>
-        
-        <h3 class="font-heading" style="font-size: 1.35rem;">${p.title}</h3>
-        
-        <p style="font-size: 0.95rem; color: var(--color-muted); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-          ${p.desc}
-        </p>
-        
-        <div class="font-mono" style="font-size: 0.8rem; color: var(--color-primary); margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--color-border);">
-          ${p.tech}
-        </div>
-
-        <button class="btn-secondary open-modal-btn" style="width: 100%; margin-top: 8px;" data-id="${p.id}">
-          Lihat Detail Proyek
-        </button>
-      </div>
-    `).join('');
-
-    // Attach modal events
-    grid.querySelectorAll('.open-modal-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = btn.getAttribute('data-id');
-        const proj = currentProjects.find(item => item.id === id);
-        if (proj) openProjectModal(proj);
-      });
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>'"]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      if (m === "'") return '&#039;';
+      if (m === '"') return '&quot;';
+      return m;
     });
   }
 
-  // Accessible Dialog Modal with Focus Trap (desktop-a11y-specialist)
-  function openProjectModal(proj) {
+  function openProjectModal(project, triggerElement) {
+    lastProjFocused = triggerElement;
     const modal = document.getElementById('project-modal');
+    const img = document.getElementById('proj-modal-img');
+    const title = document.getElementById('proj-modal-title');
+    const desc = document.getElementById('proj-modal-desc');
+    const closeBtn = document.getElementById('close-proj-modal');
+
+    if (modal && img && title && desc) {
+      img.src = project.image;
+      img.alt = project.title;
+      title.textContent = project.title;
+      desc.textContent = project.desc;
+      modal.showModal();
+      closeBtn?.focus();
+    }
+  }
+
+  function setupProjModalListeners() {
+    const modal = document.getElementById('project-modal');
+    const c1 = document.getElementById('close-proj-modal');
+    const c2 = document.getElementById('close-proj-modal-btn');
     if (!modal) return;
 
-    document.getElementById('modal-category').textContent = proj.category;
-    document.getElementById('modal-title').textContent = proj.title;
-    document.getElementById('modal-desc').textContent = proj.desc;
-    document.getElementById('modal-tech').textContent = proj.tech;
-    document.getElementById('modal-status').textContent = proj.status;
-    
-    const linkEl = document.getElementById('modal-link');
-    if (proj.url && proj.url !== '#') {
-      linkEl.href = proj.url;
-      linkEl.style.display = 'inline-flex';
-    } else {
-      linkEl.style.display = 'none';
-    }
-
-    // Share action
-    const shareBtn = document.getElementById('modal-share');
-    shareBtn.onclick = () => {
-      if (navigator.share) {
-        navigator.share({ title: proj.title, text: proj.desc, url: window.location.href })
-          .catch(() => {});
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert('Tautan proyek telah disalin ke papan klip!');
-      }
+    const closeHandler = () => {
+      modal.close();
+      if (lastProjFocused) lastProjFocused.focus();
     };
 
-    modal.showModal();
-    // Focus close button inside dialog
-    document.getElementById('close-modal')?.focus();
-  }
+    c1?.addEventListener('click', closeHandler);
+    c2?.addEventListener('click', closeHandler);
 
-  function setupFilterTabs() {
-    const btns = document.querySelectorAll('.filter-btn');
-    btns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btns.forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-
-        const cat = btn.getAttribute('data-filter');
-        if (cat === 'all') {
-          renderProjects(currentProjects);
-        } else {
-          const filtered = currentProjects.filter(p => p.category.toLowerCase().includes(cat.toLowerCase()));
-          renderProjects(filtered);
-        }
-      });
-    });
-  }
-
-  function setupModalClose() {
-    const modal = document.getElementById('project-modal');
-    const closeBtn = document.getElementById('close-modal');
-    if (!modal || !closeBtn) return;
-
-    closeBtn.addEventListener('click', () => modal.close());
     modal.addEventListener('click', (e) => {
       const rect = modal.getBoundingClientRect();
       const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
         rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-      if (!isInDialog) modal.close();
+      if (!isInDialog) closeHandler();
     });
   }
 
-  // Google Sheets CMS Fetching with 1 Hour LocalStorage Cache
-  async function initGoogleSheetsCMS() {
-    const statusEl = document.getElementById('cms-status');
-    const CACHE_KEY = 'fatahilah_projects_cache';
-    const CACHE_TIME_KEY = 'fatahilah_projects_cache_time';
-    const CACHE_DURATION = 3600000; // 1 hour in ms
+  function renderProjects(projectsList) {
+    const container = document.getElementById('projects-grid-container');
+    if (!container) return;
 
-    try {
-      const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
-      const cachedData = localStorage.getItem(CACHE_KEY);
+    container.innerHTML = '';
+    projectsList.forEach(proj => {
+      const card = document.createElement('div');
+      card.className = 'project-card glass-card';
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'article');
+      card.setAttribute('aria-label', proj.title);
 
-      if (cachedTime && cachedData && (Date.now() - Number(cachedTime) < CACHE_DURATION)) {
-        currentProjects = JSON.parse(cachedData);
-        renderProjects(currentProjects);
-        if (statusEl) statusEl.innerHTML = `✅ Menampilkan data cache (diperbarui dalam 1 jam terakhir)`;
-        return;
-      }
+      const tagsHtml = (proj.tags || []).map(t => `<span class="badge font-mono text-xs">${escapeHtml(t)}</span>`).join('');
 
-      // If expired or no cache, try fetch
-      // Note: Replacing URL with user's verified sheet or fallback
-      const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTE2kF8a7S1N6LthG0qgYgqKq7Fqj5w-1k3Y5z/pub?output=csv';
-      const response = await fetch(SHEET_CSV_URL, { signal: AbortSignal.timeout(6000) });
-      
-      if (response.ok) {
-        const csvText = await response.text();
-        // Parse basic CSV
-        const lines = csvText.split('\n').filter(Boolean);
-        if (lines.length > 1) {
-          const parsed = [];
-          for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(',').map(s => s.replace(/^"|"$/g, '').trim());
-            if (cols.length >= 4) {
-              parsed.push({
-                id: `cms-${i}`,
-                title: cols[0] || 'Project Title',
-                category: cols[1] || 'Network Infrastructure',
-                desc: cols[2] || 'Deskripsi proyek...',
-                tech: cols[3] || 'Cisco, Mikrotik, Linux',
-                status: cols[4] || 'Active Lab',
-                url: cols[5] || '#'
-              });
-            }
-          }
-          if (parsed.length > 0) {
-            currentProjects = parsed;
-            localStorage.setItem(CACHE_KEY, JSON.stringify(currentProjects));
-            localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
-            if (statusEl) statusEl.innerHTML = `✅ Data proyek berhasil dimuat dari Google Sheets CMS`;
-          }
+      card.innerHTML = `
+        <div class="project-img-wrap">
+          <img src="${proj.image}" alt="${escapeHtml(proj.title)}" loading="lazy" />
+        </div>
+        <div class="project-info">
+          <h3 class="project-card-title">${escapeHtml(proj.title)}</h3>
+          <p class="project-desc">${escapeHtml(proj.desc)}</p>
+          <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-border">
+            ${tagsHtml}
+          </div>
+        </div>
+      `;
+
+      card.addEventListener('click', () => openProjectModal(proj, card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openProjectModal(proj, card);
         }
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  async function fetchProjects(forceRefresh = false) {
+    const statusEl = document.getElementById('proj-cms-status');
+
+    if (!forceRefresh) {
+      try {
+        const cachedTime = localStorage.getItem(PROJ_CACHE_TIME_KEY);
+        const cachedData = localStorage.getItem(PROJ_CACHE_KEY);
+        if (cachedTime && cachedData && (Date.now() - Number(cachedTime) < PROJ_CACHE_DURATION)) {
+          const parsed = JSON.parse(cachedData);
+          renderProjects(parsed);
+          if (statusEl) statusEl.innerHTML = `✅ Menampilkan proyek dari cache lokal (Diperbarui dalam 1 jam terakhir)`;
+          return;
+        }
+      } catch (e) {
+        console.warn('Projects cache read error:', e);
       }
-    } catch (err) {
-      console.warn('CMS fetch fallback triggered:', err);
-      if (statusEl) statusEl.innerHTML = `⚡ Menampilkan arsip proyek terverifikasi (Offline / Fallback Ready)`;
     }
 
-    renderProjects(currentProjects);
+    if (statusEl && forceRefresh) statusEl.innerHTML = `<span class="spinner"></span> <span>Mengambil data proyek terbaru dari Google Sheets API...</span>`;
+
+    try {
+      const response = await fetch(PROJ_DATA_URL, { signal: AbortSignal.timeout(6000) });
+      if (!response.ok) throw new Error('Spreadsheet not ok');
+      const rawText = await response.text();
+      const jsonMatch = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
+      if (!jsonMatch) throw new Error('No json match');
+      const data = JSON.parse(jsonMatch[1]);
+      const rows = data.table?.rows || [];
+
+      if (rows.length > 0) {
+        const dynamicProjects = rows.map(row => ({
+          id: row.c[0] ? String(row.c[0].v) : '',
+          title: row.c[1] ? String(row.c[1].v) : '',
+          desc: row.c[2] ? String(row.c[2].v) : '',
+          image: row.c[3] ? String(row.c[3].v) : '',
+          tags: (row.c[4] ? String(row.c[4].v) : '').split(',').map(s => s.trim()).filter(Boolean)
+        })).filter(p => p.title && p.image);
+
+        if (dynamicProjects.length > 0) {
+          renderProjects(dynamicProjects);
+          localStorage.setItem(PROJ_CACHE_KEY, JSON.stringify(dynamicProjects));
+          localStorage.setItem(PROJ_CACHE_TIME_KEY, String(Date.now()));
+          if (statusEl) statusEl.innerHTML = `✅ Proyek berhasil diperbarui dari Google Sheets CMS`;
+          return;
+        }
+      }
+      throw new Error('Fallback needed');
+    } catch (err) {
+      console.warn('Using verified exact projects source:', err);
+      renderProjects(EXACT_PROJECTS);
+      if (statusEl) statusEl.innerHTML = `⚡ Menampilkan portofolio proyek terverifikasi (Offline / Fallback Ready)`;
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    renderProjects(currentProjects);
-    setupFilterTabs();
-    setupModalClose();
-    initGoogleSheetsCMS();
+    setupProjModalListeners();
+    fetchProjects(false);
+
+    const refreshBtn = document.getElementById('refresh-proj-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => fetchProjects(true));
+    }
   });
 </script>

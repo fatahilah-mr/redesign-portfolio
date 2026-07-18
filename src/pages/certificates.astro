@@ -2,124 +2,53 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Sertifikat & Kompetensi" description="Daftar Sertifikasi Resmi dan Penghargaan LKS Fatahilah Miftahul Rahman">
+<Layout title="Sertifikat & Kompetensi" description="Galeri arsip digital sertifikasi dan pencapaian Fatahilah Miftahul Rahman di bidang IT Network & System Administration.">
   <section class="certificates-section container section-py">
     <div class="section-header">
       <div class="section-badge">
         <span class="badge font-mono" data-i18n="nav.certificates">Sertifikat</span>
       </div>
-      <h1 class="font-heading" data-i18n="cert.title">Sertifikasi & Penghargaan Kompetensi</h1>
+      <h1 class="font-heading" data-i18n="cert.title">Semua Sertifikat & Arsip Digital</h1>
       <p class="section-subtitle">
-        Bukti pencapaian akademik dan validasi keahlian teknis di bidang administrasi sistem jaringan dan kompetensi IT.
+        Bukti pencapaian kompetensi resmi, juara Lomba Kompetensi Siswa (LKS), serta sertifikasi Praktik Kerja Lapangan (PKL) di bidang IT Network & System Administration.
       </p>
     </div>
 
-    <!-- Certificates Grid -->
-    <div class="certificates-grid" id="certs-grid">
-      <!-- Card 1: LKS #1 Purworejo -->
-      <div class="cert-card glass-card card-gold" data-cert-id="cert-lks">
-        <div class="cert-badge-top">
-          <span class="badge badge-gold font-mono">🏆 Juara 1 LKS 2026</span>
-          <span class="cert-status font-mono text-accent">✔ Terverifikasi</span>
-        </div>
-        
-        <h2 class="cert-title font-heading">
-          Juara 1 LKS IT Network System Administration
-        </h2>
-        
-        <div class="cert-info font-mono">
-          <div><span data-i18n="cert.issuer">Penerbit</span>: Cabang Dinas Pendidikan Wilayah VIII / MGMP TKJ</div>
-          <div><span data-i18n="cert.date">Tanggal Terbit</span>: 2026</div>
-        </div>
+    <!-- Status CMS & Caching Notice -->
+    <div class="cms-status-bar font-mono text-sm" id="cms-status" aria-live="polite">
+      <span class="spinner"></span> <span data-i18n="cert.loading">Menghubungkan ke API Google Sheets CMS...</span>
+    </div>
 
-        <p class="cert-snippet">
-          Penghargaan Juara 1 tingkat Kabupaten Purworejo pada Lomba Kompetensi Siswa (LKS) jenjang SMK bidang IT Network System Administration.
-        </p>
+    <!-- Certificates Dynamic Grid (from Google Sheets + Fallback) -->
+    <div class="certificates-grid" id="cert-grid-dynamic" aria-label="Daftar Sertifikat">
+      <!-- Populated by Google Sheets CMS / localStorage cache or exact fallback -->
+    </div>
 
-        <button class="btn-primary open-cert-btn" data-cert-id="cert-lks" aria-haspopup="dialog">
-          Lihat Transkrip & Lampiran
-        </button>
-      </div>
-
-      <!-- Card 2: Cisco Network Academy -->
-      <div class="cert-card glass-card" data-cert-id="cert-cisco">
-        <div class="cert-badge-top">
-          <span class="badge font-mono">Cisco NetAcad</span>
-          <span class="cert-status font-mono text-primary">✔ Terverifikasi</span>
-        </div>
-        
-        <h2 class="cert-title font-heading">
-          Cisco Certified Network Associate (CCNA) Coursework
-        </h2>
-        
-        <div class="cert-info font-mono">
-          <div><span data-i18n="cert.issuer">Penerbit</span>: Cisco Networking Academy / SMK TKJ</div>
-          <div><span data-i18n="cert.date">Tanggal Terbit</span>: 2025</div>
-        </div>
-
-        <p class="cert-snippet">
-          Penyelesaian kurikulum resmi Cisco Routing & Switching, IPv4/IPv6 Subnetting, VLAN Trunking, dan Troubleshooting Topologi.
-        </p>
-
-        <button class="btn-secondary open-cert-btn" data-cert-id="cert-cisco" aria-haspopup="dialog">
-          Lihat Transkrip & Lampiran
-        </button>
-      </div>
-
-      <!-- Card 3: Mikrotik MTCNA Training / Kompetensi -->
-      <div class="cert-card glass-card" data-cert-id="cert-mikrotik">
-        <div class="cert-badge-top">
-          <span class="badge font-mono">Mikrotik Academy</span>
-          <span class="cert-status font-mono text-primary">✔ Terverifikasi</span>
-        </div>
-        
-        <h2 class="cert-title font-heading">
-          Mikrotik RouterOS Competency & Network Administration
-        </h2>
-        
-        <div class="cert-info font-mono">
-          <div><span data-i18n="cert.issuer">Penerbit</span>: Laboratorium TKJ & Praktik Industri</div>
-          <div><span data-i18n="cert.date">Tanggal Terbit</span>: 2025</div>
-        </div>
-
-        <p class="cert-snippet">
-          Kompetensi dalam manajemen bandwidth QoS, Queue Tree, Firewall Filter & Mangle, serta routing nirkabel Mikrotik.
-        </p>
-
-        <button class="btn-secondary open-cert-btn" data-cert-id="cert-mikrotik" aria-haspopup="dialog">
-          Lihat Transkrip & Lampiran
-        </button>
-      </div>
+    <!-- Google Drive & Action Buttons -->
+    <div class="cert-footer-actions">
+      <a href="https://drive.google.com/drive/folders/1jxQi8S0QpUtACRlumbORdfEAGRturCqt" target="_blank" rel="noopener noreferrer" class="btn-primary drive-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.433 22l-2.9-5.02 5.4-9.35h5.8L4.433 22zm4.4-9.35L5.733 7.63 11.133 0h5.8l-5.4 9.35H8.833zm11.167 9.35H7.333l2.9-5H19.4l2.9 5h-2.3z"/></svg>
+        Buka Folder Sertifikat di Google Drive
+      </a>
+      <button class="btn-secondary" id="refresh-cms-btn" title="Muat Ulang Langsung dari Google Sheets Tanpa Cache">
+        ↻ Segarkan Data CMS
+      </button>
     </div>
   </section>
 
-  <!-- Accessible Transcript Modal with Focus Trap & Focus Return (desktop-a11y-specialist) -->
-  <dialog id="cert-dialog" class="cert-dialog glass-card" aria-labelledby="dialog-title" aria-describedby="dialog-snippet">
-    <div class="dialog-header">
-      <span class="badge badge-gold font-mono" id="dialog-badge">Transkrip Resmi</span>
-      <button class="close-dialog-btn" id="close-dialog" aria-label="Tutup Transkrip Sertifikat">✕</button>
+  <!-- Accessible Modal with Focus Trap & Focus Return for Full Transcript Image -->
+  <dialog id="cert-modal" class="cert-modal glass-card" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <span class="badge badge-gold font-mono" id="modal-badge">📄 Lampiran & Transkrip Resmi</span>
+      <button class="close-modal-btn" id="close-modal" aria-label="Tutup Lampiran">✕</button>
     </div>
-
-    <div class="dialog-body">
-      <h2 id="dialog-title" class="font-heading text-2xl">Judul Sertifikat</h2>
-      
-      <div class="dialog-meta font-mono">
-        <div><strong>Penerbit:</strong> <span id="dialog-issuer"></span></div>
-        <div><strong>Tahun:</strong> <span id="dialog-year"></span></div>
-        <div><strong>Status:</strong> <span class="text-accent">✔ Valid / Resmi Terverifikasi</span></div>
+    <div class="modal-body text-center">
+      <h2 id="modal-title" class="font-heading text-xl mb-4">Transkrip Sertifikat</h2>
+      <div class="modal-img-container">
+        <img id="modal-img" src="" alt="Halaman Lampiran Sertifikat" loading="lazy" class="transcript-image" />
       </div>
-
-      <p id="dialog-snippet" class="dialog-desc">Deskripsi kompetensi...</p>
-
-      <div class="transcript-box font-mono">
-        <h3 class="text-sm uppercase text-primary">Rincian Modul / Nilai Kompetensi</h3>
-        <ul id="dialog-modules" class="module-list">
-          <!-- Populated by script -->
-        </ul>
-      </div>
-
-      <div class="dialog-footer">
-        <button id="close-dialog-btn-2" class="btn-secondary" style="width: 100%;">
+      <div class="modal-footer mt-6">
+        <button id="close-modal-btn-2" class="btn-secondary" style="width: 100%;">
           Tutup Transkrip (Escape / Enter)
         </button>
       </div>
@@ -128,173 +57,433 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .section-header { text-align: center; max-width: 780px; margin: 0 auto 56px; }
+  .section-header { text-align: center; max-width: 800px; margin: 0 auto 36px; }
   .section-badge { margin-bottom: 16px; }
   .section-subtitle { font-size: 1.1rem; margin-top: 12px; }
 
+  .cms-status-bar {
+    text-align: center;
+    color: var(--color-muted);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: var(--bg-surface);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .certificates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 32px;
+    margin-bottom: 48px;
   }
 
   .cert-card {
-    padding: 36px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    border-radius: 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--color-border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
 
-  .card-gold { border-top: 4px solid var(--color-accent); }
+  .cert-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+  }
 
-  .cert-badge-top {
+  .featured-cert {
+    border-top: 4px solid var(--color-accent);
+  }
+
+  .pkl-vertical {
+    grid-row: span 2;
+  }
+
+  .cert-img-wrap {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-surface);
+    aspect-ratio: 16 / 10;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
   }
 
-  .cert-title { font-size: 1.45rem; line-height: 1.35; }
-  .cert-info { font-size: 0.85rem; color: var(--color-muted); display: flex; flex-direction: column; gap: 4px; }
-  .cert-snippet { font-size: 0.98rem; color: var(--color-muted); line-height: 1.6; margin-top: 8px; margin-bottom: 12px; }
+  .pkl-vertical .cert-img-wrap {
+    aspect-ratio: 3 / 4;
+  }
 
-  .text-accent { color: var(--color-accent); }
-  .text-primary { color: var(--color-primary); }
+  .cert-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
 
-  /* Dialog Modal */
-  .cert-dialog {
+  .cert-card:hover .cert-img-wrap img {
+    transform: scale(1.04);
+  }
+
+  .cert-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+
+  .cert-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    line-height: 1.35;
+    color: var(--color-foreground);
+  }
+
+  .cert-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .btn-transkrip {
+    margin-top: auto;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: var(--bg-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-transkrip:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
+  }
+
+  .cert-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .drive-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Accessible Dialog Modal */
+  .cert-modal {
     margin: auto;
-    padding: 36px;
-    max-width: 650px;
+    padding: 32px;
+    max-width: 780px;
     width: 92%;
     border-radius: 20px;
     background: var(--bg-card);
     color: var(--color-foreground);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-lg);
-    z-index: 2500;
+    z-index: 3000;
   }
 
-  .cert-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.8);
+  .cert-modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
   }
 
-  .dialog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .close-dialog-btn { background: none; border: none; font-size: 1.5rem; color: var(--color-muted); cursor: pointer; }
-  .close-dialog-btn:hover { color: var(--color-foreground); }
-  .dialog-meta { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: var(--bg-surface); border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; }
-  .dialog-desc { font-size: 1.02rem; line-height: 1.7; margin-bottom: 20px; }
-
-  .transcript-box {
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .close-modal-btn { background: none; border: none; font-size: 1.5rem; color: var(--color-muted); cursor: pointer; padding: 4px; }
+  .close-modal-btn:hover { color: var(--color-foreground); }
+  
+  .modal-img-container {
+    max-height: 70vh;
+    overflow: auto;
+    border-radius: 12px;
     background: var(--bg-surface);
     border: 1px solid var(--color-border);
-    padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 24px;
+    padding: 8px;
   }
 
-  .module-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 0.875rem; }
-  .module-list li { display: flex; align-items: center; gap: 10px; }
-  .module-list li::before { content: '✔'; color: var(--color-primary); font-weight: 700; }
+  .transcript-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
 
   @media (max-width: 640px) {
     .certificates-grid { grid-template-columns: 1fr; }
-    .cert-card, .cert-dialog { padding: 24px; }
+    .cert-modal { padding: 20px; }
   }
 </style>
 
 <script is:inline>
-  const CERT_DATA = {
-    'cert-lks': {
-      title: "Juara 1 LKS IT Network System Administration 2026",
-      issuer: "Cabang Dinas Pendidikan Wilayah VIII / MGMP TKJ Purworejo",
-      year: "2026",
-      desc: "Bukti prestasi tertinggi dalam kompetensi perancangan topologi, administrasi server Linux & Windows, konfigurasi router Cisco/Mikrotik, serta keamanan jaringan.",
-      modules: [
-        "Modul A: Linux Server Administration (Debian/Ubuntu/CentOS) - Nilai: A+",
-        "Modul B: Cisco & Mikrotik Routing Switching Topology - Nilai: A+",
-        "Modul C: Windows Server Active Directory & DNS - Nilai: A+",
-        "Modul D: Network Security & Troubleshooting - Nilai: A+"
-      ]
-    },
-    'cert-cisco': {
-      title: "Cisco Certified Network Associate (CCNA) Coursework",
-      issuer: "Cisco Networking Academy / SMK TKJ",
-      year: "2025",
-      desc: "Kompetensi mendalam dalam protokol routing OSPF, BGP, Inter-VLAN routing, Access Control Lists (ACL), dan pemecahan masalah jaringan.",
-      modules: [
-        "Network Fundamentals & OSI Layer - Nilai: A",
-        "LAN Switching Technologies & VLANs - Nilai: A+",
-        "Routing Protocols (OSPF Single & Multi-Area) - Nilai: A",
-        "IPv4 / IPv6 Subnetting & Addressing - Nilai: A+"
-      ]
-    },
-    'cert-mikrotik': {
-      title: "Mikrotik RouterOS Competency & Network Administration",
-      issuer: "Laboratorium TKJ & Praktik Industri",
-      year: "2025",
-      desc: "Penguasaan manajemen mikrotik dari dasar hingga tingkat lanjut termasuk QoS HTB, Firewall Filter, Mangle, dan Wireless Routing.",
-      modules: [
-        "RouterOS Configuration & Backup - Nilai: A+",
-        "Firewall Filter Rules & Mangle Packet Marking - Nilai: A+",
-        "Bandwidth Management (Queue Simple & Queue Tree) - Nilai: A+",
-        "Wireless Bridge & Access Point Security - Nilai: A"
-      ]
-    }
-  };
+  // ==================================================
+  // KONFIGURASI GOOGLE SHEETS CMS & CACHING LOGIC
+  // ==================================================
+  const SPREADSHEET_ID = '1GtKyr8LGv5AfSChzfP7t6_4D0rBUoC8VeRdC_Rw6eqY';
+  const SHEET_NAME = 'Sheet1';
+  const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+  
+  const CACHE_KEY = 'fatahilah_certs_cache_v2';
+  const CACHE_TIME_KEY = 'fatahilah_certs_cache_time_v2';
+  const CACHE_DURATION = 3600000; // 1 Jam dalam milidetik
 
   let lastFocusedElement = null;
 
-  function setupCertDialog() {
-    const dialog = document.getElementById('cert-dialog');
-    const closeBtn1 = document.getElementById('close-dialog');
-    const closeBtn2 = document.getElementById('close-dialog-btn-2');
-    if (!dialog) return;
+  // Exact fallback data verified from ~/storage/shared/portofolio/certificates.html
+  const FALLBACK_CERTS = [
+    {
+      id: "1",
+      nama: "Juara I - IT Network System Administration",
+      penerbit: "LKS SMK Kabupaten Purworejo",
+      tahun: "2026",
+      tipe: "horizontal",
+      tombolAda: false,
+      imgDepan: "/assets/certificates/lks.webp",
+      imgBelakang: ""
+    },
+    {
+      id: "2",
+      nama: "Sertifikat PKL UPTD BLK Kebumen (Depan)",
+      penerbit: "Dinas Tenaga Kerja Kabupaten Kebumen",
+      tahun: "2025",
+      tipe: "vertical",
+      tombolAda: false,
+      imgDepan: "/assets/certificates/PKL-UPTD-BLK-Kebumen-1.webp",
+      imgBelakang: ""
+    },
+    {
+      id: "3",
+      nama: "Sertifikat PKL UPTD BLK Kebumen (Mata Latihan)",
+      penerbit: "UPTD BLK Kebumen - Unit Kompetensi",
+      tahun: "2025",
+      tipe: "horizontal",
+      tombolAda: false,
+      imgDepan: "/assets/certificates/PKL-UPTD-BLK-Kebumen-2.webp",
+      imgBelakang: ""
+    },
+    {
+      id: "4",
+      nama: "Sertifikat PKL IMC Computer (Depan)",
+      penerbit: "Izzan Mediatek Computindo",
+      tahun: "2025",
+      tipe: "horizontal",
+      tombolAda: false,
+      imgDepan: "/assets/certificates/PKL-IMC-Computer-1.webp",
+      imgBelakang: ""
+    },
+    {
+      id: "5",
+      nama: "Sertifikat PKL IMC Computer (Transkrip Nilai)",
+      penerbit: "Izzan Mediatek Computindo",
+      tahun: "2025",
+      tipe: "horizontal",
+      tombolAda: false,
+      imgDepan: "/assets/certificates/PKL-IMC-Computer-2.webp",
+      imgBelakang: ""
+    }
+  ];
 
-    // Open modal buttons
-    document.querySelectorAll('.open-cert-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        lastFocusedElement = btn; // Save for Focus Return (desktop-a11y-specialist)
-        const id = btn.getAttribute('data-cert-id');
-        const data = CERT_DATA[id];
-        if (!data) return;
-
-        document.getElementById('dialog-title').textContent = data.title;
-        document.getElementById('dialog-issuer').textContent = data.issuer;
-        document.getElementById('dialog-year').textContent = data.year;
-        document.getElementById('dialog-snippet').textContent = data.desc;
-
-        const modUl = document.getElementById('dialog-modules');
-        modUl.innerHTML = data.modules.map(m => `<li>${m}</li>`).join('');
-
-        dialog.showModal();
-        closeBtn1?.focus();
-      });
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>'"]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      if (m === "'") return '&#039;';
+      if (m === '"') return '&quot;';
+      return m;
     });
+  }
+
+  // Open Modal with Focus Trap & Return (WCAG AA / desktop-a11y-specialist)
+  function openCertModal(imgSrc, certName, triggerBtn) {
+    lastFocusedElement = triggerBtn;
+    const modal = document.getElementById('cert-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const closeBtn = document.getElementById('close-modal');
+    
+    if (modal && modalImg) {
+      modalImg.src = imgSrc;
+      modalImg.alt = 'Transkrip - ' + certName;
+      if (modalTitle) modalTitle.textContent = certName;
+      modal.showModal();
+      closeBtn?.focus();
+    }
+  }
+
+  function setupModalListeners() {
+    const modal = document.getElementById('cert-modal');
+    const close1 = document.getElementById('close-modal');
+    const close2 = document.getElementById('close-modal-btn-2');
+    if (!modal) return;
 
     const closeHandler = () => {
-      dialog.close();
-      // Focus Return (DTK-A11Y-007)
-      if (lastFocusedElement) {
-        lastFocusedElement.focus();
-      }
+      modal.close();
+      if (lastFocusedElement) lastFocusedElement.focus();
     };
 
-    closeBtn1?.addEventListener('click', closeHandler);
-    closeBtn2?.addEventListener('click', closeHandler);
+    close1?.addEventListener('click', closeHandler);
+    close2?.addEventListener('click', closeHandler);
 
-    // Close on backdrop click
-    dialog.addEventListener('click', (e) => {
-      const rect = dialog.getBoundingClientRect();
+    modal.addEventListener('click', (e) => {
+      const rect = modal.getBoundingClientRect();
       const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
         rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
       if (!isInDialog) closeHandler();
     });
+  }
 
-    dialog.addEventListener('close', () => {
-      if (lastFocusedElement) lastFocusedElement.focus();
+  function renderCertificates(certificates) {
+    const container = document.getElementById('cert-grid-dynamic');
+    if (!container) return;
+
+    if (!certificates.length) {
+      container.innerHTML = `<div class="loading-status font-mono" style="grid-column:1/-1; text-align:center; padding: 40px;">📭 Belum ada sertifikat.</div>`;
+      return;
+    }
+
+    container.innerHTML = '';
+    certificates.forEach(cert => {
+      const isFeatured = (cert.id === '1' || cert.id === 1);
+      const additionalClass = cert.tipe === 'vertical' ? 'pkl-vertical' : '';
+      const featuredClass = isFeatured ? 'featured-cert' : '';
+      const card = document.createElement('div');
+      card.className = `cert-card glass-card ${additionalClass} ${featuredClass}`;
+
+      const imgHtml = `<img src="${cert.imgDepan}" alt="${escapeHtml(cert.nama)}" loading="lazy" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
+      const fallbackDiv = `<div class="cert-img-fallback font-mono" style="display:none; align-items:center; justify-content:center; width:100%; height:100%; background:var(--bg-surface); color:var(--color-muted); font-size:0.85rem; padding: 20px; text-align: center;">📄 ${escapeHtml(cert.nama)}</div>`;
+
+      let buttonHtml = '';
+      if (cert.tombolAda && cert.imgBelakang) {
+        buttonHtml = `<button class="btn-transkrip font-mono" data-fullimg="${cert.imgBelakang}" data-certname="${escapeHtml(cert.nama)}">📄 Lihat Transkrip</button>`;
+      }
+
+      let metaText = '';
+      if (cert.penerbit && cert.tahun) {
+        metaText = `${escapeHtml(cert.penerbit)} — ${escapeHtml(cert.tahun)}`;
+      } else if (cert.penerbit) {
+        metaText = escapeHtml(cert.penerbit);
+      } else if (cert.tahun) {
+        metaText = escapeHtml(cert.tahun);
+      }
+
+      card.innerHTML = `
+        <div class="cert-img-wrap">
+          ${imgHtml}
+          ${fallbackDiv}
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">${escapeHtml(cert.nama)}</div>
+          ${metaText ? `<div class="cert-meta">${metaText}</div>` : ''}
+          ${buttonHtml}
+        </div>
+      `;
+
+      const btn = card.querySelector('.btn-transkrip');
+      if (btn && cert.imgBelakang) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const fullImg = this.getAttribute('data-fullimg');
+          const cName = this.getAttribute('data-certname') || cert.nama;
+          openCertModal(fullImg, cName, this);
+        });
+      }
+
+      container.appendChild(card);
     });
   }
 
-  document.addEventListener('DOMContentLoaded', setupCertDialog);
+  async function fetchCertificates(forceRefresh = false) {
+    const statusEl = document.getElementById('cms-status');
+    
+    // Check localStorage cache first if not force refreshing
+    if (!forceRefresh) {
+      try {
+        const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        if (cachedTime && cachedData && (Date.now() - Number(cachedTime) < CACHE_DURATION)) {
+          const parsed = JSON.parse(cachedData);
+          renderCertificates(parsed);
+          if (statusEl) statusEl.innerHTML = `✅ Menampilkan data dari cache lokal (Diperbarui dalam 1 jam terakhir)`;
+          return;
+        }
+      } catch (e) {
+        console.warn('Cache read error:', e);
+      }
+    }
+
+    if (statusEl && forceRefresh) statusEl.innerHTML = `<span class="spinner"></span> <span>Mengambil data terbaru langsung dari Google Sheets API...</span>`;
+
+    try {
+      const response = await fetch(DATA_URL, { signal: AbortSignal.timeout(8000) });
+      if (!response.ok) throw new Error('Gagal mengakses spreadsheet');
+      const rawText = await response.text();
+      const jsonMatch = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
+      if (!jsonMatch) throw new Error('Respons JSON tidak valid dari Google visualization');
+      const data = JSON.parse(jsonMatch[1]);
+      const rows = data.table?.rows || [];
+
+      const certificatesData = rows.map(row => {
+        return {
+          id: row.c[0] ? String(row.c[0].v) : '',
+          timestamp: row.c[1] ? String(row.c[1].v) : '',
+          nama: row.c[2] ? String(row.c[2].v) : 'Sertifikat',
+          penerbit: row.c[3] ? String(row.c[3].v) : '',
+          tahun: row.c[4] ? String(row.c[4].v) : '',
+          tipe: row.c[5] ? String(row.c[5].v).toLowerCase() : 'horizontal',
+          tombolAda: (row.c[6] ? String(row.c[6].v) : '') === 'ada',
+          imgDepan: row.c[7] ? String(row.c[7].v) : '',
+          imgBelakang: row.c[8] ? String(row.c[8].v) : ''
+        };
+      }).filter(cert => cert.imgDepan !== '');
+
+      if (certificatesData.length > 0) {
+        renderCertificates(certificatesData);
+        localStorage.setItem(CACHE_KEY, JSON.stringify(certificatesData));
+        localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+        if (statusEl) statusEl.innerHTML = `✅ Data sertifikat berhasil diperbarui dari Google Sheets CMS`;
+        return;
+      }
+      throw new Error('Data kosong');
+    } catch (err) {
+      console.warn('CMS fetch error/offline, using exact verified fallback:', err);
+      renderCertificates(FALLBACK_CERTS);
+      if (statusEl) statusEl.innerHTML = `⚡ Menampilkan arsip sertifikat terverifikasi (Offline / Fallback Ready)`;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setupModalListeners();
+    fetchCertificates(false);
+
+    const refreshBtn = document.getElementById('refresh-cms-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => fetchCertificates(true));
+    }
+  });
 </script>
