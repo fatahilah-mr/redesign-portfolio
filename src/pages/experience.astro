@@ -94,7 +94,7 @@ import Layout from '../layouts/Layout.astro';
       <p class="text-muted max-w-xl mx-auto mb-6" data-i18n="exp.cta.desc">
         Semua keahlian teknis jaringan dan bukti kelulusan serta transkrip nilai dari program Praktik Kerja Lapangan ini telah didokumentasikan secara lengkap.
       </p>
-      <div class="flex flex-wrap justify-center gap-4">
+      <div class="cta-actions">
         <a href="/skills" class="btn-primary" data-i18n="exp.cta.btn.skills">Lihat Keahlian →</a>
         <a href="/certificates" class="btn-secondary" data-i18n="exp.cta.btn.certs">Lihat Sertifikat →</a>
       </div>
@@ -229,8 +229,25 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 2rem;
   }
 
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
   @media (max-width: 640px) {
     .experience-grid { grid-template-columns: 1fr; }
     .experience-card { padding: 24px; }
+    
+    .cta-actions {
+      flex-direction: column;
+    }
+    .cta-actions .btn-primary,
+    .cta-actions .btn-secondary {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
   }
 </style>
