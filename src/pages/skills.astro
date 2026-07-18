@@ -8,92 +8,107 @@ import Layout from '../layouts/Layout.astro';
       <div class="section-badge">
         <span class="badge font-mono" data-i18n="nav.skills">Keahlian</span>
       </div>
-      <h1 class="font-heading" data-i18n="skills.title">Keahlian & Kompetensi Teknis</h1>
-      <p class="section-subtitle">Empat pilar keahlian utama yang menggabungkan infrastruktur server, jaringan, otomatisasi AI, dan pengembangan web modern.</p>
+      <h1 class="font-heading" data-i18n="skills.title">Keahlian &amp; Kompetensi Teknis</h1>
+      <p class="section-subtitle">Empat pilar keahlian utama yang mencakup Hardware &amp; Cabling, Cisco Networking, MikroTik &amp; Wireless, serta Server &amp; OS Administration.</p>
     </div>
 
-    <!-- Skills Grid -->
+    <!-- Skills Grid (Mengikuti acuan_dari_web_portofolio/index.html #skills) -->
     <div class="skills-grid">
-      <!-- Category 1: Network Admin -->
+      <!-- Category 1: Hardware & Cabling -->
       <div class="skill-card glass-card">
         <div class="card-header">
           <div class="icon-circle icon-blue">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"/><path d="M2 20h20"/><path d="M14 12v.01"/></svg>
           </div>
-          <h2 class="skill-cat-title font-heading" data-i18n="skills.cat1.title">1. Network Administration</h2>
+          <h2 class="skill-cat-title font-heading">Hardware &amp; Cabling</h2>
         </div>
-        <p class="skill-cat-desc" data-i18n="skills.cat1.desc">
-          Routing, Switching, VLAN, BGP/OSPF, Cisco IOS, Mikrotik RouterOS, Network Troubleshooting & Firewall Rules.
-        </p>
-        <div class="tags-cluster font-mono">
-          <span class="tag">Cisco IOS</span>
-          <span class="tag">Mikrotik RouterOS</span>
-          <span class="tag">VLAN / Trunking</span>
-          <span class="tag">OSPF & BGP</span>
-          <span class="tag">Firewall Mangle</span>
-          <span class="tag">Subnetting</span>
+        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>PC Assembly &amp; Hardware Troubleshooting</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>UTP Cabling (Crimping) &amp; LAN Testing</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Fiber Optic Splicing &amp; Fast Connector Termination</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Fiber Optic Testing (OPM &amp; VFL)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Rack Server &amp; Cable Management</span></li>
+        </ul>
+        <div class="tags-cluster font-mono mt-auto pt-4 border-t border-border">
+          <span class="tag">PC Assembly</span>
+          <span class="tag">UTP Crimping</span>
+          <span class="tag">Fiber Optic</span>
+          <span class="tag">OPM &amp; VFL</span>
+          <span class="tag">Rack Server</span>
         </div>
       </div>
 
-      <!-- Category 2: System & Server -->
+      <!-- Category 2: Cisco Networking -->
       <div class="skill-card glass-card">
         <div class="card-header">
           <div class="icon-circle icon-indigo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
           </div>
-          <h2 class="skill-cat-title font-heading" data-i18n="skills.cat2.title">2. System & Server Management</h2>
+          <h2 class="skill-cat-title font-heading">Cisco Networking</h2>
         </div>
-        <p class="skill-cat-desc" data-i18n="skills.cat2.desc">
-          Linux (Debian/Ubuntu/CentOS), Windows Server, DNS, DHCP, Web Server (Apache/Nginx), Docker & Virtualisasi.
-        </p>
-        <div class="tags-cluster font-mono">
-          <span class="tag">Debian / Ubuntu</span>
-          <span class="tag">Windows Server</span>
-          <span class="tag">Apache / Nginx</span>
-          <span class="tag">DNS Bind9</span>
-          <span class="tag">Docker Container</span>
-          <span class="tag">Proxmox / KVM</span>
+        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Konfigurasi Dasar &amp; Keamanan Device</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Infrastruktur Switching, VLAN &amp; Trunking</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Implementasi STP Portfast &amp; EtherChannel</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Pengalamatan IPv4 &amp; IPv6 Addressing</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Static &amp; Dynamic Routing (OSPF, BGP, EIGRP, RIP)</span></li>
+        </ul>
+        <div class="tags-cluster font-mono mt-auto pt-4 border-t border-border">
+          <span class="tag">Cisco IOS</span>
+          <span class="tag">VLAN / Trunking</span>
+          <span class="tag">STP &amp; EtherChannel</span>
+          <span class="tag">IPv4 / IPv6</span>
+          <span class="tag">OSPF / BGP / EIGRP</span>
         </div>
       </div>
 
-      <!-- Category 3: AI Prompt & Automation -->
+      <!-- Category 3: Mikrotik & Wireless -->
       <div class="skill-card glass-card">
         <div class="card-header">
           <div class="icon-circle icon-cyan">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
           </div>
-          <h2 class="skill-cat-title font-heading" data-i18n="skills.cat3.title">3. AI Prompt Engineering & Automation</h2>
+          <h2 class="skill-cat-title font-heading">Mikrotik &amp; Wireless</h2>
         </div>
-        <p class="skill-cat-desc" data-i18n="skills.cat3.desc">
-          LLM Prompt Design, System Prompts, Chain-of-Thought (CoT), Automated Diagnostics, AI-Assisted Shell Scripting.
-        </p>
-        <div class="tags-cluster font-mono">
-          <span class="tag">System Prompting</span>
-          <span class="tag">Chain-of-Thought</span>
-          <span class="tag">Shell Automation</span>
-          <span class="tag">AI Network Diagnostics</span>
-          <span class="tag">Structured JSON Output</span>
+        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Konfigurasi Dasar, Pengalamatan IP &amp; Internet Gateway (Identity, IPv4, DHCP Client/Server, DNS, SNTP)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Manajemen Pengguna &amp; Hak Akses Perangkat (User Privilege, Password Hardening, Custom Service Ports)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Keamanan Jaringan &amp; Firewall (NAT Masquerade, Content &amp; Media Blocking, Port Forwarding)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Wireless Network Setup (Mikrotik AP-Bridge Mode, Security Profiles, &amp; SOHO Wireless Router Configuration)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Mikrotik Hotspot Gateway &amp; User Profile Management</span></li>
+        </ul>
+        <div class="tags-cluster font-mono mt-auto pt-4 border-t border-border">
+          <span class="tag">RouterOS</span>
+          <span class="tag">Firewall NAT</span>
+          <span class="tag">AP-Bridge Mode</span>
+          <span class="tag">Hotspot Gateway</span>
+          <span class="tag">Bandwidth Mgmt</span>
         </div>
       </div>
 
-      <!-- Category 4: Web Development & CMS (NEW CATEGORY) -->
+      <!-- Category 4: Server & OS Administration -->
       <div class="skill-card glass-card">
         <div class="card-header">
           <div class="icon-circle icon-gold">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
           </div>
-          <h2 class="skill-cat-title font-heading" data-i18n="skills.cat4.title">4. Web Development & CMS</h2>
+          <h2 class="skill-cat-title font-heading">Server &amp; OS Administration</h2>
         </div>
-        <p class="skill-cat-desc" data-i18n="skills.cat4.desc">
-          HTML5, Vanilla CSS, JavaScript, Astro Framework, Git Version Control, Integrasi Google Sheets Headless CMS.
-        </p>
-        <div class="tags-cluster font-mono">
-          <span class="tag">Astro MPA v5</span>
-          <span class="tag">Vanilla CSS Design</span>
-          <span class="tag">Google Sheets CMS</span>
-          <span class="tag">Git & GitHub</span>
-          <span class="tag">WCAG AA A11Y</span>
-          <span class="tag">Cloudflare / Vercel</span>
+        <ul class="skill-list space-y-2.5 text-muted leading-relaxed text-sm">
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Linux Server (Debian 12 &amp; 13): Network Config (IP, Gateway, DNS, Resolvconf, Timezone) &amp; SSH Server</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Linux Services (Debian 12 &amp; 13): DNS Server (Bind9) &amp; Web Server (Nginx, Apache2, Virtual Host)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Network Optimization &amp; Security: DHCP Server, Nftables Firewall, &amp; VRRP Redundancy</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>High Availability Server: HAProxy (Load Balancing Round-Robin)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Windows Server 2022 Services: ADDS, DNS Server, DHCP Server, &amp; IIS (Internet Information Services)</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>Windows Server Data Mgmt: File Sharing, RAID Storage, Organizational Units (OU), User &amp; Group Management</span></li>
+          <li class="flex items-start gap-2"><span class="text-primary font-bold">•</span><span>AI Prompt Engineering: Pemanfaatan LLM untuk Otomatisasi Skrip &amp; Troubleshooting Sistem</span></li>
+        </ul>
+        <div class="tags-cluster font-mono mt-auto pt-4 border-t border-border">
+          <span class="tag">Debian 12/13</span>
+          <span class="tag">Bind9 &amp; Nginx</span>
+          <span class="tag">HAProxy &amp; VRRP</span>
+          <span class="tag">Windows Server 2022</span>
+          <span class="tag">AI Prompt Engineering</span>
         </div>
       </div>
     </div>

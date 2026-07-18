@@ -3,49 +3,58 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Beranda" description="Portofolio Fatahilah Miftahul Rahman - Juara 1 LKS IT Network System Administration & AI Prompt Engineering Specialist">
-  <!-- Hero Section -->
+  <!-- Hero Section (Mengikuti acuan_dari_web_portofolio/index.html #home) -->
   <section class="hero-section container section-py">
-    <div class="hero-content">
-      <!-- Badge LKS -->
-      <div class="badge-wrapper animate-fade-in">
-        <span class="badge badge-gold font-mono" data-i18n="hero.badge">
-          Juara 1 LKS IT Network System Administration & AI Prompt Engineer
-        </span>
+    <div class="hero-inner flex flex-col md:flex-row items-center justify-between gap-12 w-full max-w-5xl mx-auto">
+      <div class="hero-text flex flex-col items-center md:items-start text-center md:text-left flex-grow">
+        <!-- Eyebrow -->
+        <div class="badge-wrapper mb-4 animate-fade-in">
+          <span class="badge badge-primary font-mono text-sm uppercase tracking-wider px-4 py-1.5" data-i18n="hero.eyebrow">
+            IT Network &amp; System Administration
+          </span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="hero-name font-heading text-4xl sm:text-5xl md:text-6xl text-foreground leading-tight mb-4 animate-slide-up" data-i18n="hero.title">
+          Fatahilah<br />Miftahul Rahman
+        </h1>
+
+        <!-- Subtitle / Tagline -->
+        <p class="hero-tagline text-muted text-lg sm:text-xl font-light mb-8 max-w-xl animate-slide-up-delay" data-i18n="hero.subtitle">
+          Connecting the future, one network at a time.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-actions flex flex-wrap items-center justify-center md:justify-start gap-4 mb-10 animate-slide-up-delay-2">
+          <a href="/projects" class="btn-primary" data-i18n="hero.cta.primary">
+            Lihat Portofolio →
+          </a>
+          <a href="/contact" class="btn-secondary" data-i18n="hero.cta.secondary">
+            Hubungi Saya
+          </a>
+        </div>
+
+        <!-- Quick Stats Showcase -->
+        <div class="hero-stats grid grid-cols-3 gap-4 w-full max-w-lg animate-fade-in-late">
+          <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
+            <span class="stat-number font-heading text-2xl block text-foreground">99.9%</span>
+            <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.uptime">Target Uptime</span>
+          </div>
+          <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
+            <span class="stat-number font-heading text-2xl block text-accent">#1</span>
+            <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.lks">Juara 1 LKS 2026</span>
+          </div>
+          <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
+            <span class="stat-number font-heading text-2xl block text-primary">LLM</span>
+            <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.ai">AI Prompt Automated</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Main Heading -->
-      <h1 class="hero-title animate-slide-up" data-i18n="hero.title">
-        Menghubungkan Infrastruktur & Mengoptimalkan AI dengan Presisi
-      </h1>
-
-      <!-- Subtitle -->
-      <p class="hero-subtitle animate-slide-up-delay" data-i18n="hero.subtitle">
-        Selamat datang di portofolio Fatahilah. Spesialis administrasi jaringan server, routing & switching, serta rekayasa prompt AI (LLM) untuk otomatisasi sistem berkinerja tinggi.
-      </p>
-
-      <!-- CTA Buttons -->
-      <div class="hero-actions animate-slide-up-delay-2">
-        <a href="/projects" class="btn-primary" data-i18n="hero.cta.primary">
-          Lihat Portofolio →
-        </a>
-        <a href="/contact" class="btn-secondary" data-i18n="hero.cta.secondary">
-          Hubungi Saya
-        </a>
-      </div>
-
-      <!-- Quick Stats Showcase -->
-      <div class="hero-stats animate-fade-in-late">
-        <div class="stat-card glass-card">
-          <span class="stat-number font-heading">99.9%</span>
-          <span class="stat-label font-mono" data-i18n="hero.stat.uptime">Target Uptime</span>
-        </div>
-        <div class="stat-card glass-card">
-          <span class="stat-number font-heading text-accent">#1</span>
-          <span class="stat-label font-mono" data-i18n="hero.stat.lks">Juara 1 LKS 2026</span>
-        </div>
-        <div class="stat-card glass-card">
-          <span class="stat-number font-heading text-primary">LLM</span>
-          <span class="stat-label font-mono" data-i18n="hero.stat.ai">AI Prompt Automated</span>
+      <!-- Hero Photo Wrap -->
+      <div class="hero-photo-wrap flex-shrink-0 animate-fade-in">
+        <div class="avatar-ring w-52 h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full p-2.5 bg-gradient-to-tr from-primary via-accent to-primary shadow-2xl flex items-center justify-center">
+          <img src="/assets/profile.webp" alt="Foto Profil Fatahilah Miftahul Rahman" width="280" height="280" class="w-full h-full rounded-full object-cover bg-surface" fetchpriority="high" />
         </div>
       </div>
     </div>
