@@ -10,23 +10,23 @@
 [data-theme="dark"] {
   /* Dark Mode (OLED Command Center & Server Room) - Default */
   --bg-main: #0B0E14;
-  --bg-surface: #111622;
-  --bg-card: #151B2B;
-  --bg-card-hover: #1B2338;
-  --bg-glass: rgba(21, 27, 43, 0.75);
+  --bg-surface: #141A29;
+  --bg-card: #1C2438;
+  --bg-card-hover: #242E47;
+  --bg-glass: rgba(28, 36, 56, 0.75);
   
   --color-primary: #3B82F6;       /* Electric Blue - Network Fiber & Routing */
   --color-primary-glow: rgba(59, 130, 246, 0.25);
-  --color-secondary: #6366F1;     /* Indigo - System Architecture */
-  --color-accent: #F59E0B;        /* Amber Gold - LKS Trophy & Highlights */
-  --color-accent-glow: rgba(245, 158, 11, 0.25);
-  --color-cyan: #06B6D4;          /* Cyber Cyan - Terminal & Prompts */
+  --color-secondary: #818CF8;     /* Lighter Indigo for better contrast */
+  --color-accent: #FBBF24;        /* Brighter Amber for highlights */
+  --color-accent-glow: rgba(251, 191, 36, 0.25);
+  --color-cyan: #22D3EE;          /* Brighter Cyber Cyan */
   
-  --color-foreground: #F1F5F9;    /* Pure Slate White (High Contrast WCAG AAA) */
-  --color-muted: #94A3B8;         /* Muted Slate Gray (Contrast >= 4.5:1) */
-  --color-subtle: #64748B;
+  --color-foreground: #F8FAFC;    /* Brighter White (Maximum Contrast) */
+  --color-muted: #CBD5E1;         /* Lighter Gray for better paragraph readability */
+  --color-subtle: #94A3B8;        /* Brighter subtle gray */
   
-  --color-border: #1F293D;
+  --color-border: #334155;        /* Brighter border so components stand out */
   --color-border-focus: #3B82F6;
   --color-ring: #3B82F6;
   
