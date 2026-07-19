@@ -4,7 +4,7 @@
 <section class="achievement-highlight container section-py">
   <div class="achievement-glass glass-card">
     <div class="achievement-image-wrap">
-      <img src="/assets/certificates/sertifikat-lks.webp" alt="Sertifikat Juara 1 LKS IT Network System Administration Tingkat Kabupaten Purworejo 2026" loading="lazy" />
+      <img id="ach-img" src="https://cdn.fatahmr.my.id/portfolio/assets/certificates/LKS-Certificate.webp" alt="Sertifikat Juara 1 LKS IT Network System Administration" loading="lazy" />
       <div class="achievement-badge-float">
         <span class="badge badge-gold font-mono">Top Achievement</span>
       </div>
@@ -12,23 +12,19 @@
     
     <div class="achievement-content">
       <div class="badge-wrapper mb-3">
-        <span class="badge badge-primary font-mono text-xs uppercase tracking-wider">Lomba Kompetensi Siswa 2026</span>
+        <span class="badge badge-primary font-mono text-xs uppercase tracking-wider">Pencapaian Terbesar</span>
       </div>
-      <h2 class="font-heading achievement-title" data-i18n="home.achievement.title">
-        Juara 1 LKS Kabupaten Purworejo
+      <h2 id="ach-title" class="font-heading achievement-title" data-i18n="home.achievement.title">
+        Juara I - IT Network System Administration
       </h2>
-      <p class="text-muted achievement-desc" data-i18n="home.achievement.desc">
+      <p id="ach-desc" class="text-muted achievement-desc" data-i18n="home.achievement.desc">
         Pencapaian terbesar saya di tahun 2026. Meraih medali emas pada Lomba Kompetensi Siswa (LKS) tingkat Kabupaten dalam bidang lomba <strong>IT Network System Administration</strong>. Membuktikan kompetensi tingkat lanjut dalam membangun dan mengamankan infrastruktur jaringan yang kompleks.
       </p>
       
       <div class="achievement-meta">
         <div class="meta-item">
-          <span class="meta-label">Bidang:</span>
-          <span class="meta-value">IT Network System Administration</span>
-        </div>
-        <div class="meta-item">
           <span class="meta-label">Penyelenggara:</span>
-          <span class="meta-value">Dinas Pendidikan dan Kebudayaan</span>
+          <span id="ach-publisher" class="meta-value">LKS SMK Kabupaten Purworejo</span>
         </div>
       </div>
 
@@ -38,6 +34,59 @@
     </div>
   </div>
 </section>
+
+<script is:inline>
+(function() {
+  const SPREADSHEET_ID = '1GtKyr8LGv5AfSChzfP7t6_4D0rBUoC8VeRdC_Rw6eqY';
+  const SHEET_NAME = 'Sheet1';
+  const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+  const CACHE_KEY = 'portfolio_certificates_cache_v2';
+  
+  async function loadTopAchievement() {
+    try {
+      let data = null;
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        data = JSON.parse(cached);
+      } else {
+        const response = await fetch(DATA_URL);
+        if (response.ok) {
+          const rawText = await response.text();
+          const jsonMatch = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
+          if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[1]);
+            const rows = parsed.table.rows || [];
+            data = rows.map(row => ({
+              id: row.c[0] ? String(row.c[0].v) : '',
+              nama: row.c[2] ? String(row.c[2].v) : 'Sertifikat',
+              penerbit: row.c[3] ? String(row.c[3].v) : '',
+              imgDepan: row.c[7] ? String(row.c[7].v) : ''
+            }));
+            localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+          }
+        }
+      }
+      
+      if (data && data.length > 0) {
+        // Ambil sertifikat baris pertama (urutan pertama)
+        const topCert = data[0];
+        
+        if (topCert.imgDepan) document.getElementById('ach-img').src = topCert.imgDepan;
+        if (topCert.nama) document.getElementById('ach-title').textContent = topCert.nama;
+        if (topCert.penerbit) document.getElementById('ach-publisher').textContent = topCert.penerbit;
+      }
+    } catch (e) {
+      console.warn('Failed loading top achievement:', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadTopAchievement);
+  } else {
+    loadTopAchievement();
+  }
+})();
+</script>
 
 <style>
   .achievement-highlight {
