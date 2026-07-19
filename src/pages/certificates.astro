@@ -65,7 +65,7 @@ import Layout from '../layouts/Layout.astro';
   const DATA_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
   const CACHE_KEY = 'portfolio_certificates_cache_v2';
   const CACHE_TIME_KEY = 'portfolio_certificates_cache_time_v2';
-  const CACHE_DURATION_MS = 3600000; // 1 jam
+  const CACHE_DURATION_MS = 86400000; // 1 hari (24 jam)
 
   const container = document.getElementById('cert-grid-dynamic');
   const modal = document.getElementById('certModal');
@@ -102,7 +102,7 @@ import Layout from '../layouts/Layout.astro';
         cacheStatus.textContent = isEn ? `Status: Cached Data (${currentCacheState.mins}m remaining)` : `Status: Data dari Cache (${currentCacheState.mins}m tersisa)`;
         break;
       case 'live_success':
-        cacheStatus.textContent = isEn ? 'Status: Live Update Success (1h Cache)' : 'Status: Pembaruan Live Berhasil (Cache 1 Jam)';
+        cacheStatus.textContent = isEn ? 'Status: Live Update Success (24h Cache)' : 'Status: Pembaruan Live Berhasil (Cache 1 Hari)';
         break;
       case 'offline_cache':
         cacheStatus.textContent = isEn ? 'Status: Offline (Showing Last Cache)' : 'Status: Offline (Menampilkan Cache Terakhir)';
@@ -289,7 +289,7 @@ import Layout from '../layouts/Layout.astro';
       } catch (e) {}
 
       renderCertificates(certificatesData);
-      updateCacheStatusText('Status: Pembaruan Live Berhasil (Cache 1 Jam)');
+      updateCacheStatusText('Status: Pembaruan Live Berhasil (Cache 1 Hari)');
     } catch (err) {
       console.error(err);
       try {
