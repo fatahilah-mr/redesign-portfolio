@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import HomeTeasers from '../components/HomeTeasers.astro';
 ---
 
 <Layout title="Beranda" description="Portofolio Fatahilah Miftahul Rahman - Juara 1 LKS IT Network System Administration & AI Prompt Engineering Specialist">
@@ -99,6 +101,11 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </section>
+
+  <!-- Teaser Sections (Proyek Unggulan & Tentang/Kontak) -->
+  <FeaturedProjects />
+  <HomeTeasers />
+
 </Layout>
 
 <style>

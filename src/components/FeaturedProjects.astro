@@ -1,0 +1,227 @@
+---
+---
+
+<section class="featured-projects container section-py">
+  <div class="section-header text-center mb-12">
+    <h2 class="font-heading text-3xl" data-i18n="home.featured.title">Proyek Unggulan</h2>
+    <p class="text-muted mt-3" data-i18n="home.featured.subtitle">Beberapa eksperimen laboratorium dan proyek infrastruktur terbaik saya.</p>
+  </div>
+
+  <div id="featured-grid" class="projects-grid mb-10">
+    <div class="loading-status glass-card p-8 text-center col-span-full">
+      <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-primary mb-3"></div>
+      <p class="font-heading text-sm text-muted">Memuat proyek unggulan...</p>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a href="/projects" class="btn-primary" data-i18n="home.featured.btn">
+      Lihat Semua Proyek →
+    </a>
+  </div>
+</section>
+
+<script is:inline>
+(function() {
+  const SPREADSHEET_ID = '1YMxR6-SlP-TT0B3y6NScT4L0YH0GXZEId_PY0Jgp8fQ';
+  const SHEET_NAME = 'Database_App'; 
+  const GOOGLE_SHEETS_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+  const CACHE_KEY = 'portfolio_projects_cache_v2';
+  
+  const grid = document.getElementById('featured-grid');
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>'"]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      if (m === "'") return '&#039;';
+      if (m === '"') return '&quot;';
+      return m;
+    });
+  }
+
+  function getBadgeClass(kategori) {
+    if (!kategori) return 'badge-default';
+    const kat = kategori.toLowerCase().trim();
+    if (kat === 'ai') return 'badge-ai';
+    if (kat === 'cisco') return 'badge-cisco';
+    if (kat === 'linux') return 'badge-linux';
+    if (kat === 'mikrotik') return 'badge-mikrotik';
+    if (kat === 'windows server') return 'badge-windows';
+    if (kat === 'website') return 'badge-website';
+    return 'badge-default';
+  }
+
+  function renderFeatured(projects) {
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    // Ambil maksimal 3 proyek terbaru/terbaik
+    const featured = projects.slice(0, 3);
+    
+    featured.forEach(project => {
+      const card = document.createElement('div');
+      card.className = 'project-card glass-card';
+      
+      const imgUrl = project.link_gambar ? project.link_gambar : 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600';
+      const badgeClass = getBadgeClass(project.kategori);
+      const judulEscaped = escapeHtml(project.judul);
+      const judulEnEscaped = escapeHtml(project.english_title || project.judul);
+      const deskripsiEscaped = escapeHtml(project.deskripsi);
+      const deskripsiEnEscaped = escapeHtml(project.english_desc);
+      const kategoriEscaped = escapeHtml(project.kategori);
+      const linkEscaped = escapeHtml(project.link_dokumentasi || '#');
+      
+      const currentLang = localStorage.getItem('lang') || 'id';
+      const initialDesc = currentLang === 'en' ? deskripsiEnEscaped : deskripsiEscaped;
+      const initialTitle = currentLang === 'en' ? judulEnEscaped : judulEscaped;
+
+      card.innerHTML = `
+        <div class="project-img-wrap">
+          <img src="${imgUrl}" alt="Preview" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600';">
+        </div>
+        <div class="project-info">
+          <div>
+            <span class="project-badge ${badgeClass}">${kategoriEscaped}</span>
+            <h3 class="project-title font-heading dynamic-title" data-id-title="${judulEscaped}" data-en-title="${judulEnEscaped}">${initialTitle}</h3>
+            <p class="project-desc text-muted dynamic-desc" data-id-desc="${deskripsiEscaped}" data-en-desc="${deskripsiEnEscaped}">${initialDesc}</p>
+          </div>
+          <div class="project-actions mt-auto pt-4 border-t border-border">
+            <a href="${linkEscaped}" target="_blank" rel="noopener noreferrer" class="project-link text-xs py-2 px-3 flex items-center justify-center gap-1.5 w-full">
+              <span>Lihat Detail</span>
+            </a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  async function loadFeatured() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        renderFeatured(JSON.parse(cached));
+      }
+      
+      const response = await fetch(GOOGLE_SHEETS_URL);
+      if (response.ok) {
+        const rawText = await response.text();
+        const jsonMatch = rawText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/);
+        if (jsonMatch) {
+          const data = JSON.parse(jsonMatch[1]);
+          const rows = data.table.rows || [];
+          const parsed = rows.map((row) => ({
+            judul: row.c[2] ? row.c[2].v : 'Tanpa Judul',
+            kategori: row.c[3] ? row.c[3].v : 'Umum',
+            link_dokumentasi: row.c[4] ? row.c[4].v : '#',
+            deskripsi: row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.',
+            link_gambar: row.c[6] ? row.c[6].v : '',
+            english_desc: row.c[7] ? row.c[7].v : (row.c[5] ? row.c[5].v : 'Tidak ada deskripsi.'),
+            english_title: row.c[8] ? row.c[8].v : (row.c[2] ? row.c[2].v : 'Untitled')
+          }));
+          localStorage.setItem(CACHE_KEY, JSON.stringify(parsed));
+          renderFeatured(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('Failed loading featured:', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadFeatured);
+  } else {
+    loadFeatured();
+  }
+})();
+</script>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .project-card {
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+  }
+
+  .project-img-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-surface);
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .project-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+  }
+
+  .project-badge {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: .2rem .6rem;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge-ai { background-color: rgba(3, 105, 161, 0.25); color: #38BDF8; }
+  .badge-cisco { background-color: rgba(180, 83, 9, 0.25); color: #FBBF24; }
+  .badge-linux { background-color: rgba(21, 128, 61, 0.25); color: #4ADE80; }
+  .badge-mikrotik { background-color: rgba(185, 28, 28, 0.25); color: #F87171; }
+  .badge-windows { background-color: rgba(109, 40, 217, 0.25); color: #A78BFA; }
+  .badge-website { background-color: rgba(55, 48, 163, 0.25); color: #818CF8; }
+  .badge-default { background-color: rgba(55, 65, 81, 0.4); color: #E5E7EB; }
+
+  .project-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: .4rem;
+  }
+  .project-desc {
+    font-size: .85rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .project-link {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .project-link:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+</style>
