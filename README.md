@@ -74,6 +74,13 @@ npm run build
 ```
 The compiled static files will be generated in the `dist/` directory.
 
+## 📄 License & Usage
+
+This project is dual-licensed:
+
+1. **Source Code:** Released under the [MIT License](LICENSE). You are free to study, copy, and modify the underlying Astro architecture and CSS styling for your own projects.
+2. **Personal Content:** All personal assets (photos, certificates, identity, and personal text narratives) are **All Rights Reserved**. Please do not use my personal identity or achievements in your own templates.
+
 ## Connect with Me 🤝
 
 Interested in discussing a project, collaboration, or just want to say hi? Feel free to reach out!
