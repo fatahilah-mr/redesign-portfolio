@@ -387,7 +387,9 @@ import { ui, defaultLang } from '../i18n/ui';
     en: `<svg class="flag-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 60 42" aria-hidden="true"><rect width="60" height="42" fill="#012169"/><path d="M0 0 L60 42 M60 0 L0 42" stroke="#FFFFFF" stroke-width="8"/><path d="M0 0 L60 42 M60 0 L0 42" stroke="#C8102E" stroke-width="4"/><path d="M30 0 V42 M0 21 H60" stroke="#FFFFFF" stroke-width="12"/><path d="M30 0 V42 M0 21 H60" stroke="#C8102E" stroke-width="7"/></svg>`
   };
 
-  function applyLanguage(lang) {
+  let i18nTimer = null;
+
+  function applyLanguage(lang, animate = true) {
     document.documentElement.lang = lang;
     localStorage.setItem('lang', lang);
 
@@ -401,29 +403,40 @@ import { ui, defaultLang } from '../i18n/ui';
       flagEl.innerHTML = lang === 'en' ? FLAG_SVGS.en : FLAG_SVGS.id;
     }
 
-    // Update all elements with data-i18n attribute
     const dict = window.__DICTIONARY[lang] || window.__DICTIONARY['id'];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (key && dict[key]) {
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.placeholder = dict[key];
-        } else if (el.hasAttribute('data-i18n-html')) {
-          el.innerHTML = dict[key];
-        } else if (!el.querySelector('svg')) {
-          el.textContent = dict[key];
-        } else {
-          // If element contains an SVG icon, only update text spans or aria attributes so SVG is preserved
-          const textSpan = el.querySelector('span, .btn-text');
-          if (textSpan) {
-            textSpan.textContent = dict[key];
+    const targets = document.querySelectorAll('[data-i18n]');
+
+    const updateTexts = () => {
+      targets.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key && dict[key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = dict[key];
+          } else if (el.hasAttribute('data-i18n-html')) {
+            el.innerHTML = dict[key];
+          } else if (!el.querySelector('svg')) {
+            el.textContent = dict[key];
           } else {
-            if (el.hasAttribute('aria-label')) el.setAttribute('aria-label', dict[key]);
-            if (el.hasAttribute('title')) el.setAttribute('title', dict[key]);
+            const textSpan = el.querySelector('span, .btn-text');
+            if (textSpan) {
+              textSpan.textContent = dict[key];
+            } else {
+              if (el.hasAttribute('aria-label')) el.setAttribute('aria-label', dict[key]);
+              if (el.hasAttribute('title')) el.setAttribute('title', dict[key]);
+            }
           }
         }
-      }
-    });
+        el.classList.remove('i18n-changing');
+      });
+    };
+
+    if (animate) {
+      if (i18nTimer) clearTimeout(i18nTimer);
+      targets.forEach(el => el.classList.add('i18n-changing'));
+      i18nTimer = setTimeout(updateTexts, 80);
+    } else {
+      updateTexts();
+    }
 
     // Announce to screen readers
     const announcer = document.getElementById('a11y-announcer');
@@ -441,12 +454,12 @@ import { ui, defaultLang } from '../i18n/ui';
     btn.addEventListener('click', () => {
       const current = localStorage.getItem('lang') || 'id';
       const next = current === 'id' ? 'en' : 'id';
-      applyLanguage(next);
+      applyLanguage(next, true);
     });
 
-    // Apply saved or initial language on load
+    // Apply saved or initial language on load without animation delay
     const saved = localStorage.getItem('lang') || 'id';
-    applyLanguage(saved);
+    applyLanguage(saved, false);
   }
 
   document.addEventListener('DOMContentLoaded', setupLangToggle);

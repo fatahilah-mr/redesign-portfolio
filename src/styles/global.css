@@ -365,3 +365,25 @@ textarea:focus-visible,
 .border-t { border-top-width: 1px; border-top-style: solid; }
 .border-border { border-color: var(--color-border); }
 .rounded-full { border-radius: 9999px; }
+
+/* ==========================================================================
+   BILINGUAL CONTENT ANIMATION (i18n)
+   Smooth GPU-accelerated micro-fade when language is toggled
+   ========================================================================== */
+[data-i18n] {
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.i18n-changing {
+  opacity: 0.25 !important;
+  transform: translateY(3px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-i18n] {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
