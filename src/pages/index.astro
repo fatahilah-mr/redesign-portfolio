@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AchievementHighlight from '../components/AchievementHighlight.astro';
+import ExperienceShowcase from '../components/ExperienceShowcase.astro';
 import FeaturedProjects from '../components/FeaturedProjects.astro';
 import HomeTeasers from '../components/HomeTeasers.astro';
 ---
@@ -28,7 +29,7 @@ import HomeTeasers from '../components/HomeTeasers.astro';
         </p>
 
         <!-- CTA Buttons -->
-        <div class="hero-actions flex flex-wrap items-center justify-center gap-4 mb-10 animate-slide-up-delay-2">
+        <div class="hero-actions flex flex-wrap items-center justify-center gap-4 animate-slide-up-delay-2">
           <a href="/projects" class="btn-primary" data-i18n="hero.cta.primary">
             Lihat Portofolio →
           </a>
@@ -36,72 +37,12 @@ import HomeTeasers from '../components/HomeTeasers.astro';
             Hubungi Saya
           </a>
         </div>
-
-        <!-- Quick Stats Showcase -->
-        <div class="hero-stats grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl mx-auto animate-fade-in-late">
-          <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
-            <span class="stat-number font-heading text-2xl block text-foreground">99.9%</span>
-            <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.uptime">Target Uptime</span>
-          </div>
-          <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
-            <span class="stat-number font-heading text-2xl block text-accent">#1</span>
-            <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.lks">Juara 1 LKS 2026</span>
-          </div>
-          <div class="stat-card glass-card p-4 rounded-xl border border-border text-center">
-            <span class="stat-number font-heading text-2xl block text-primary">LLM</span>
-            <span class="stat-label font-mono text-xs text-muted block mt-1" data-i18n="hero.stat.ai">AI Prompt Automated</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Quick Feature Highlights -->
-  <section class="highlights-section container section-py">
-    <div class="section-header">
-      <h2 class="font-heading" data-i18n="home.highlights.heading">Filosofi Teknis & Core Keahlian</h2>
-    </div>
-
-    <div class="highlights-grid">
-      <div class="highlight-item glass-card">
-        <div class="icon-box icon-blue">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect width="16" height="16" x="4" y="4" rx="2"></rect>
-            <rect width="6" height="6" x="9" y="9" rx="1"></rect>
-            <path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path>
-          </svg>
-        </div>
-        <h3 class="highlight-title" data-i18n="about.phil.card1.title">1. Keamanan & Keandalan (Uptime 99.9%)</h3>
-        <p class="highlight-desc" data-i18n="about.phil.card1.desc">Infrastruktur tidak boleh lengah. Saya menerapkan segmentasi VLAN, firewall ketat, dan redundansi protokol.</p>
-      </div>
-
-      <div class="highlight-item glass-card">
-        <div class="icon-box icon-cyan">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="4 17 10 11 4 5"></polyline>
-            <line x1="12" x2="20" y1="19" y2="19"></line>
-          </svg>
-        </div>
-        <h3 class="highlight-title" data-i18n="about.phil.card2.title">2. Otomatisasi Efisien</h3>
-        <p class="highlight-desc" data-i18n="about.phil.card2.desc">Menghemat waktu dengan otomatisasi skrip shell dan diagnosa berbantuan AI untuk efisiensi sistem.</p>
-      </div>
-
-      <div class="highlight-item glass-card">
-        <div class="icon-box icon-gold">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-            <path d="M4 22h16"></path>
-            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-          </svg>
-        </div>
-        <h3 class="highlight-title" data-i18n="about.phil.card3.title">3. Pembelajaran Berkelanjutan</h3>
-        <p class="highlight-desc" data-i18n="about.phil.card3.desc">Teknologi jaringan dan AI berkembang pesat. Saya selalu menguji teknologi terbaru di laboratorium virtual.</p>
-      </div>
-    </div>
-  </section>
+  <!-- Showcase Pengalaman PKL & Kerja -->
+  <ExperienceShowcase />
 
   <!-- Highlight Pencapaian Terbesar -->
   <AchievementHighlight />
