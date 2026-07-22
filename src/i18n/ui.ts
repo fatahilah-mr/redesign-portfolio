@@ -52,6 +52,7 @@ export const ui = {
     'exp.pkl.loc3': 'IMC Computer',
     'exp.edu.school': 'SMK - Teknik Komputer dan Jaringan (TKJ)',
     'exp.edu.achieve': 'Juara 1 Lomba Kompetensi Siswa (LKS) Bidang IT Network System Administration tingkat Kabupaten Purworejo 2026.',
+    'home.exp.more': 'Lihat Detail Semua Pengalaman →',
 
     // Skills Page
     'skills.title': 'Keahlian & Kompetensi Teknis',
@@ -139,6 +140,7 @@ export const ui = {
     'exp.pkl.loc3': 'IMC Computer',
     'exp.edu.school': 'Vocational High School - Computer and Network Engineering (TKJ)',
     'exp.edu.achieve': '1st Place Winner in Student Competency Competition (LKS) for IT Network System Administration, Purworejo Regency 2026.',
+    'home.exp.more': 'View All Experience Details →',
 
     // Skills Page
     'skills.title': 'Technical Skills & Competency Arsenal',

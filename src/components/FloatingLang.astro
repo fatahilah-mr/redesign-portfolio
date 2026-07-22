@@ -9,11 +9,7 @@ import { ui, defaultLang } from '../i18n/ui';
     aria-label="Switch between Indonesian and English language"
     title="Ganti Bahasa / Switch Language"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lang-globe-icon" aria-hidden="true">
-      <circle cx="12" cy="12" r="10"></circle>
-      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-      <path d="M2 12h20"></path>
-    </svg>
+    <span class="lang-flag" id="current-lang-flag" aria-hidden="true">🇮🇩</span>
     <span class="lang-text font-mono" id="current-lang-code">ID</span>
   </button>
 </div>
@@ -380,8 +376,12 @@ import { ui, defaultLang } from '../i18n/ui';
 
     // Update floating button visual
     const codeEl = document.getElementById('current-lang-code');
+    const flagEl = document.getElementById('current-lang-flag');
     if (codeEl) {
       codeEl.textContent = lang === 'en' ? 'EN' : 'ID';
+    }
+    if (flagEl) {
+      flagEl.textContent = lang === 'en' ? '🇬🇧' : '🇮🇩';
     }
 
     // Update all elements with data-i18n attribute
