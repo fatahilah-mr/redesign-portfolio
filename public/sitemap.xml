@@ -1,13 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fatahmr.my.id/</loc>
-    <lastmod>2026-06-28</lastmod>
-    <priority>1.00</priority>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/"/>
   </url>
   <url>
-    <loc>https://fatahmr.my.id/certificates.html</loc>
-    <lastmod>2026-06-28</lastmod>
-    <priority>0.80</priority>
+    <loc>https://fatahmr.my.id/about/</loc>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/about/"/>
+  </url>
+  <url>
+    <loc>https://fatahmr.my.id/certificates/</loc>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/certificates/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/certificates/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/certificates/"/>
+  </url>
+  <url>
+    <loc>https://fatahmr.my.id/contact/</loc>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/contact/"/>
+  </url>
+  <url>
+    <loc>https://fatahmr.my.id/experience/</loc>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/experience/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/experience/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/experience/"/>
+  </url>
+  <url>
+    <loc>https://fatahmr.my.id/projects/</loc>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/projects/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/projects/"/>
+  </url>
+  <url>
+    <loc>https://fatahmr.my.id/skills/</loc>
+    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://fatahmr.my.id/skills/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fatahmr.my.id/skills/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fatahmr.my.id/skills/"/>
   </url>
 </urlset>
